@@ -8,26 +8,23 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600;1,700;1,800&display=swap"
         rel="stylesheet">
     <style>
         :root {
             --primary: #0E6E66;
             --primary-dark: #0A524C;
             --primary-soft: #E3F2F0;
-            --accent: #F0A94E;
+            --accent: #14897B;
             --ink: #16212B;
             --ink-muted: #4B5A66;
             --ink-faint: #7E8C96;
             --line: #D9E1E6;
-            --line-soft: #E6ECEF;
-            --input-border: #C5D1D8;
             --bg: #F6F8F9;
             --white: #FFFFFF;
             --warn-bg: #FFF4E0;
             --warn-border: #F0D3A3;
             --warn-text: #5C3200;
-            --warn-icon: #8A4B00;
         }
 
         * {
@@ -54,22 +51,16 @@
             color: var(--primary-dark);
         }
 
-        .container {
-            max-width: 1160px;
-            margin: 0 auto;
-            padding: 0 24px;
+        em {
+            font-style: italic;
+            color: var(--accent);
+            font-weight: 500;
         }
 
-        /* ---------- SCROLL PROGRESS ---------- */
-        .scroll-progress {
-            position: fixed;
-            top: 0;
-            left: 0;
-            height: 3px;
-            width: 0%;
-            background: linear-gradient(90deg, var(--primary), var(--accent));
-            z-index: 1000;
-            transition: width .1s linear;
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 32px;
         }
 
         /* ---------- NAV ---------- */
@@ -77,26 +68,24 @@
             position: sticky;
             top: 0;
             z-index: 100;
-            background: transparent;
-            transition: background .25s ease, box-shadow .25s ease, border-color .25s ease;
+            background: rgba(251, 248, 243, 0);
             border-bottom: 1px solid transparent;
+            transition: background .25s ease, border-color .25s ease;
         }
 
         .nav.is-scrolled {
-            background: rgba(246, 248, 249, .92);
+            background: rgba(251, 248, 243, .92);
             backdrop-filter: blur(10px);
             border-color: var(--line);
-            box-shadow: 0 1px 0 rgba(22, 33, 43, .02);
         }
 
         .nav .container {
             display: flex;
-            flex-wrap: wrap;
             align-items: center;
             justify-content: space-between;
             gap: 16px;
-            padding-top: 16px;
-            padding-bottom: 16px;
+            padding-top: 22px;
+            padding-bottom: 22px;
         }
 
         .brand {
@@ -105,12 +94,16 @@
             gap: 10px;
             text-decoration: none;
             color: var(--ink);
+            font-weight: 700;
+            font-size: 15px;
+            letter-spacing: .02em;
+            text-transform: uppercase;
         }
 
         .brand-mark {
-            width: 36px;
-            height: 36px;
-            border-radius: 10px;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
             background: var(--primary);
             display: flex;
             align-items: center;
@@ -118,196 +111,209 @@
             flex: none;
         }
 
-        .brand-name {
-            font-size: 20px;
-            font-weight: 800;
-            letter-spacing: -.01em;
-        }
-
         .nav-links {
             display: flex;
-            flex-wrap: wrap;
             align-items: center;
-            gap: 8px;
+            gap: 28px;
         }
 
         .nav-link {
-            padding: 10px 14px;
-            border-radius: 10px;
             text-decoration: none;
             color: var(--ink-muted);
             font-weight: 500;
-            font-size: 15px;
-            position: relative;
+            font-size: 14.5px;
+            transition: color .15s ease;
         }
 
-        .nav-link:hover {
-            color: var(--ink);
-        }
-
+        .nav-link:hover,
         .nav-link.is-active {
-            color: var(--primary-dark);
-            font-weight: 600;
+            color: var(--ink);
         }
 
         .btn-outline-nav {
-            padding: 10px 18px;
-            border-radius: 10px;
-            border: 1px solid var(--input-border);
+            padding: 10px 20px;
+            border-radius: 999px;
+            border: 1px solid var(--ink);
             text-decoration: none;
             color: var(--ink);
             font-weight: 600;
-            font-size: 15px;
-            background: var(--white);
+            font-size: 14px;
+        }
+
+        .btn-outline-nav:hover {
+            background: var(--ink);
+            color: var(--white);
+        }
+
+        /* ---------- CHAPTER RAIL (desktop side nav) ---------- */
+        .chapter-rail {
+            position: fixed;
+            right: 36px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 90;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .chapter-rail a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: .06em;
+            color: var(--ink-faint);
+        }
+
+        .chapter-rail a .bar {
+            width: 18px;
+            height: 1px;
+            background: var(--ink-faint);
+            transition: width .2s ease, background .2s ease;
+        }
+
+        .chapter-rail a span.lbl {
+            opacity: 0;
+            transform: translateX(-6px);
+            transition: opacity .2s ease, transform .2s ease;
+            white-space: nowrap;
+        }
+
+        .chapter-rail a:hover span.lbl,
+        .chapter-rail a.is-active span.lbl {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .chapter-rail a.is-active {
+            color: var(--accent);
+        }
+
+        .chapter-rail a.is-active .bar {
+            width: 30px;
+            background: var(--accent);
+        }
+
+        @media (max-width: 1100px) {
+            .chapter-rail {
+                display: none;
+            }
         }
 
         /* ---------- HERO ---------- */
-        .hero {
+        .hero-wrap {
             position: relative;
-            overflow: hidden;
-            padding-top: 28px;
+            min-height: 150vh;
+            display: flex;
+            align-items: flex-start;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 32px;
+            gap: 24px;
         }
 
-        .hero-blob {
+        .hero-visual-stage {
+            flex: 1 1 46%;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-copy {
+            flex: 1 1 54%;
+            min-width: 0;
+            padding-top: 64px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-deco {
             position: absolute;
-            border-radius: 50%;
-            filter: blur(60px);
-            opacity: .35;
             pointer-events: none;
             z-index: 0;
         }
 
-        .hero-blob.b1 {
-            width: 420px;
-            height: 420px;
-            background: var(--primary-soft);
-            top: -160px;
-            right: -80px;
-            animation: drift1 16s ease-in-out infinite;
+        .hero-deco.ring {
+            width: 340px;
+            height: 340px;
+            border-radius: 50%;
+            border: 1px solid var(--line);
+            top: 20px;
+            right: 2vw;
         }
 
-        .hero-blob.b2 {
-            width: 320px;
-            height: 320px;
-            background: #FCE7C8;
-            bottom: -120px;
-            left: -60px;
-            animation: drift2 18s ease-in-out infinite;
+        .hero-deco.dots {
+            width: 160px;
+            height: 160px;
+            top: 480px;
+            left: -10px;
+            background-image: radial-gradient(var(--line) 1.5px, transparent 1.5px);
+            background-size: 18px 18px;
+            opacity: .8;
         }
 
-        @keyframes drift1 {
-
-            0%,
-            100% {
-                transform: translate(0, 0) scale(1);
-            }
-
-            50% {
-                transform: translate(-30px, 30px) scale(1.08);
+        @media (max-width: 1100px) {
+            .hero-deco {
+                display: none;
             }
         }
 
-        @keyframes drift2 {
-
-            0%,
-            100% {
-                transform: translate(0, 0) scale(1);
-            }
-
-            50% {
-                transform: translate(25px, -20px) scale(1.06);
-            }
-        }
-
-        .hero-inner {
-            position: relative;
-            z-index: 1;
-            max-width: 1160px;
-            margin: 0 auto;
-            padding: 56px 24px 72px;
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            gap: 48px;
-        }
-
-        .hero-copy {
-            flex: 1 1 460px;
-            min-width: 0;
-            display: flex;
-            flex-direction: column;
-            gap: 24px;
-        }
-
-        .eyebrow {
-            align-self: flex-start;
+        .hero-eyebrow {
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            padding: 7px 14px 7px 10px;
-            border-radius: 999px;
-            background: var(--primary-soft);
+            font-size: 12.5px;
+            font-weight: 700;
+            letter-spacing: .08em;
+            text-transform: uppercase;
             color: var(--primary-dark);
-            font-size: 13px;
-            font-weight: 600;
+            margin-bottom: 28px;
         }
 
-        .eyebrow .dot {
-            width: 7px;
-            height: 7px;
+        .hero-eyebrow .dot {
+            width: 6px;
+            height: 6px;
             border-radius: 50%;
-            background: var(--primary);
-            animation: pulse 1.8s ease-in-out infinite;
-        }
-
-        @keyframes pulse {
-
-            0%,
-            100% {
-                opacity: 1;
-                transform: scale(1);
-            }
-
-            50% {
-                opacity: .4;
-                transform: scale(.7);
-            }
+            background: var(--accent);
         }
 
         .hero-copy h1 {
             margin: 0;
-            font-size: 50px;
-            line-height: 1.08;
+            font-size: 76px;
+            line-height: 1.02;
             font-weight: 800;
             letter-spacing: -.02em;
+            max-width: 15ch;
         }
 
         .hero-copy h1 em {
-            font-style: normal;
-            color: var(--primary);
+            display: block;
         }
 
-        .hero-copy p.lead {
-            margin: 0;
-            font-size: 18px;
-            line-height: 1.6;
+        .hero-lead {
+            margin: 28px 0 0;
+            font-size: 19px;
+            line-height: 1.65;
             color: var(--ink-muted);
-            max-width: 540px;
+            max-width: 46ch;
         }
 
         .hero-actions {
             display: flex;
             flex-wrap: wrap;
-            gap: 12px;
+            gap: 14px;
+            margin-top: 36px;
         }
 
         .btn-primary,
         .btn-outline {
-            padding: 14px 24px;
-            border-radius: 12px;
+            padding: 15px 26px;
+            border-radius: 999px;
             text-decoration: none;
             font-weight: 700;
-            font-size: 16px;
+            font-size: 15.5px;
             border: 0;
             cursor: pointer;
             font-family: inherit;
@@ -319,7 +325,7 @@
         .btn-primary {
             background: var(--primary);
             color: var(--white);
-            box-shadow: 0 10px 24px -10px rgba(14, 110, 102, .55);
+            box-shadow: 0 14px 28px -12px rgba(14, 110, 102, .5);
             transition: transform .15s ease, box-shadow .15s ease, background .15s ease;
         }
 
@@ -327,328 +333,388 @@
             background: var(--primary-dark);
             color: var(--white);
             transform: translateY(-1px);
-            box-shadow: 0 14px 28px -10px rgba(14, 110, 102, .6);
         }
 
         .btn-outline {
-            border: 1px solid var(--input-border);
-            background: var(--white);
+            border: 1px solid var(--ink);
+            background: transparent;
             color: var(--ink);
             font-weight: 600;
         }
 
         .btn-outline:hover {
-            color: var(--ink);
-            border-color: var(--ink-faint);
+            background: var(--ink);
+            color: var(--white);
         }
 
-        .hero-stats {
+        .hero-stats-row {
             display: flex;
             flex-wrap: wrap;
-            gap: 28px;
-            padding-top: 8px;
+            gap: 40px;
+            margin-top: 56px;
+            padding-top: 28px;
+            border-top: 1px solid var(--line);
+            max-width: 46ch;
         }
 
-        .hero-stats .stat b {
+        .hero-stats-row .stat b {
             display: block;
-            font-size: 26px;
+            font-size: 15px;
             font-weight: 800;
             color: var(--ink);
-            font-variant-numeric: tabular-nums;
         }
 
-        .hero-stats .stat span {
-            font-size: 13px;
+        .hero-stats-row .stat span {
+            font-size: 12.5px;
             color: var(--ink-faint);
         }
 
-        /* ---------- HERO DEMO CARD ---------- */
-        .hero-preview-wrap {
-            flex: 1 1 380px;
-            min-width: 0;
+        /* Sticky demo visual, Cyclemon-style pinned panel */
+        .hero-visual-stage {
+            position: sticky;
+            top: 0;
+            height: 100vh;
             display: flex;
+            align-items: center;
             justify-content: center;
+            pointer-events: none;
         }
 
-        .hero-preview {
-            width: 100%;
-            max-width: 420px;
+        .hero-visual {
+            pointer-events: auto;
+            width: min(380px, 86vw);
             background: var(--white);
             border: 1px solid var(--line);
-            border-radius: 20px;
+            border-radius: 22px;
             padding: 26px;
             display: flex;
             flex-direction: column;
-            gap: 18px;
-            box-shadow: 0 30px 60px -30px rgba(22, 33, 43, .25);
+            gap: 16px;
+            box-shadow: 0 40px 70px -32px rgba(36, 31, 24, .3);
+            position: absolute;
+            right: 7vw;
+            top: 50%;
+            transform: translateY(-50%);
         }
 
-        .hero-preview .meta {
+        .hero-visual .cap {
+            font-size: 11px;
+            letter-spacing: .06em;
+            text-transform: uppercase;
+            color: var(--ink-faint);
+            font-weight: 700;
+        }
+
+        .hero-visual .meta {
             display: flex;
             justify-content: space-between;
-            font-size: 13px;
+            font-size: 12.5px;
             color: var(--ink-muted);
             font-weight: 600;
         }
 
         .progress-track {
-            height: 6px;
+            height: 5px;
             border-radius: 999px;
-            background: var(--line-soft);
+            background: var(--line);
             overflow: hidden;
         }
 
         .progress-fill {
-            height: 6px;
+            height: 5px;
             border-radius: 999px;
             background: var(--primary);
             width: 20%;
             transition: width .5s cubic-bezier(.2, .8, .2, 1);
         }
 
-        .hero-preview p.question {
+        .hero-visual .question {
             margin: 0;
-            font-size: 18px;
+            font-size: 17.5px;
             font-weight: 700;
             line-height: 1.4;
-            min-height: 50px;
+            min-height: 48px;
         }
 
-        .hero-options {
+        .hero-visual-options {
             display: flex;
             flex-direction: column;
-            gap: 8px;
+            gap: 7px;
         }
 
-        .hero-options button {
+        .hero-visual-options button {
             text-align: left;
-            padding: 12px 16px;
+            padding: 11px 14px;
             border-radius: 10px;
             border: 1px solid var(--line);
-            font-size: 15px;
+            font-size: 14px;
             font-family: inherit;
             background: var(--white);
             color: var(--ink);
             cursor: pointer;
-            transition: border-color .15s ease, background .15s ease, transform .1s ease;
+            transition: border-color .15s ease, background .15s ease;
         }
 
-        .hero-options button:hover {
+        .hero-visual-options button:hover {
             border-color: var(--primary);
         }
 
-        .hero-options button.picked {
+        .hero-visual-options button.picked {
             border: 2px solid var(--primary);
             background: var(--primary-soft);
             font-weight: 600;
-            padding: 11px 15px;
+            padding: 10px 13px;
         }
 
-        .hero-preview-foot {
-            font-size: 12.5px;
-            color: var(--ink-faint);
-            text-align: center;
+        @media (max-width: 1100px) {
+            .hero-wrap {
+                min-height: 0;
+            }
+
+            .hero-visual-stage {
+                position: static;
+                height: auto;
+                margin: 48px 0 0;
+            }
+
+            .hero-visual {
+                position: static;
+                transform: none;
+                margin: 0 auto;
+            }
         }
 
-        /* ---------- REVEAL ---------- */
-        .reveal {
-            opacity: 0;
-            transform: translateY(22px);
-            transition: opacity .6s ease, transform .6s cubic-bezier(.2, .8, .2, 1);
-        }
-
-        .reveal.is-visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* ---------- SECTION SHELLS ---------- */
-        section.block {
-            background: var(--white);
+        /* ---------- CHAPTERS ---------- */
+        .chapter {
+            position: relative;
             border-top: 1px solid var(--line);
-            border-bottom: 1px solid var(--line);
-        }
-
-        .block-inner {
-            max-width: 1160px;
-            margin: 0 auto;
-            padding: 80px 24px;
-        }
-
-        .block-head {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            max-width: 640px;
-            margin-bottom: 48px;
-        }
-
-        .kicker {
-            font-size: 13px;
-            font-weight: 700;
-            color: var(--primary);
-            letter-spacing: .04em;
-            text-transform: uppercase;
-        }
-
-        .block-head h2 {
-            margin: 0;
-            font-size: 34px;
-            font-weight: 800;
-            letter-spacing: -.01em;
-        }
-
-        .block-head p {
-            margin: 0;
-            font-size: 17px;
-            line-height: 1.6;
-            color: var(--ink-muted);
-        }
-
-        /* ---------- STEPS TIMELINE ---------- */
-        .steps {
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            gap: 0;
-        }
-
-        .step {
-            position: relative;
-            display: flex;
-            gap: 24px;
-            padding-bottom: 44px;
-        }
-
-        .step:last-child {
-            padding-bottom: 0;
-        }
-
-        .step-rail {
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            flex: none;
-        }
-
-        .step-num {
-            width: 44px;
-            height: 44px;
-            border-radius: 999px;
-            background: var(--primary-soft);
-            color: var(--primary-dark);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 800;
-            font-size: 16px;
-            flex: none;
-            transition: background .3s ease, color .3s ease;
-            z-index: 1;
-        }
-
-        .step.is-visible .step-num {
-            background: var(--primary);
-            color: var(--white);
-        }
-
-        .step-line {
-            flex: 1;
-            width: 2px;
-            background: var(--line);
-            margin-top: 4px;
-            position: relative;
             overflow: hidden;
         }
 
-        .step-line span {
+        .chapter.tint-soft {
+            background: var(--primary-soft);
+        }
+
+        .chapter-numeral {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 0%;
-            background: var(--primary);
-            transition: height .8s cubic-bezier(.2, .8, .2, 1);
+            top: -0.12em;
+            font-size: 320px;
+            font-weight: 800;
+            line-height: 1;
+            color: var(--ink);
+            opacity: .04;
+            z-index: 0;
+            pointer-events: none;
+            user-select: none;
         }
 
-        .step.is-visible .step-line span {
-            height: 100%;
+        .chapter-numeral.left {
+            left: -40px;
         }
 
-        .step-body {
-            padding-top: 6px;
+        .chapter-numeral.right {
+            right: -40px;
         }
 
-        .step-body h3 {
-            margin: 0 0 8px;
-            font-size: 20px;
+        .chapter-inner {
+            position: relative;
+            z-index: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 120px 32px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 64px;
+            align-items: center;
+        }
+
+        .chapter-inner.reverse {
+            flex-direction: row-reverse;
+        }
+
+        .chapter-text {
+            flex: 1 1 440px;
+            min-width: 0;
+        }
+
+        .chapter-eyebrow {
+            font-size: 12.5px;
             font-weight: 700;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+            color: var(--primary-dark);
+            margin-bottom: 18px;
         }
 
-        .step-body p {
+        .chapter-text h2 {
+            margin: 0 0 20px;
+            font-size: 42px;
+            line-height: 1.12;
+            font-weight: 800;
+            letter-spacing: -.015em;
+        }
+
+        .chapter-text h2 em {
+            display: block;
+        }
+
+        .chapter-text>p {
             margin: 0;
-            font-size: 15.5px;
-            line-height: 1.6;
+            font-size: 17px;
+            line-height: 1.7;
             color: var(--ink-muted);
             max-width: 46ch;
         }
 
-        /* ---------- BENEFITS ---------- */
-        .benefits-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
+        .chapter-visual {
+            flex: 1 1 420px;
+            min-width: 0;
         }
 
-        .benefit-card {
-            padding: 26px;
-            background: var(--bg);
-            border: 1px solid var(--line-soft);
-            border-radius: 16px;
+        /* ---------- STEP LIST (chapter 01) ---------- */
+        .step-list {
             display: flex;
             flex-direction: column;
-            gap: 14px;
-            transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
         }
 
-        .benefit-card:hover {
-            transform: translateY(-3px);
-            border-color: var(--primary);
-            box-shadow: 0 16px 32px -20px rgba(22, 33, 43, .25);
-        }
-
-        .benefit-icon {
-            width: 42px;
-            height: 42px;
-            border-radius: 12px;
-            background: var(--primary-soft);
+        .step-row {
             display: flex;
-            align-items: center;
-            justify-content: center;
+            gap: 22px;
+            padding: 26px 0;
+            border-top: 1px solid var(--line);
+        }
+
+        .step-row:last-child {
+            border-bottom: 1px solid var(--line);
+        }
+
+        .step-row .n {
+            font-size: 14px;
+            font-weight: 800;
+            color: var(--accent);
             flex: none;
+            padding-top: 2px;
         }
 
-        .benefit-card strong {
-            font-size: 16.5px;
+        .step-row h3 {
+            margin: 0 0 6px;
+            font-size: 18px;
+            font-weight: 700;
         }
 
-        .benefit-card span {
+        .step-row p {
+            margin: 0;
             font-size: 14.5px;
+            line-height: 1.6;
             color: var(--ink-muted);
-            line-height: 1.55;
         }
 
-        /* ---------- WARNING ---------- */
-        .warning-section {
-            max-width: 1160px;
+        .step-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 28px;
+        }
+
+        .tag {
+            padding: 8px 15px;
+            border-radius: 999px;
+            border: 1px solid var(--line);
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--ink-muted);
+            background: var(--white);
+        }
+
+        /* ---------- RESULT PREVIEW CARD (chapter 02) ---------- */
+        .preview-card {
+            background: var(--white);
+            border: 1px solid var(--line);
+            border-radius: 20px;
+            padding: 28px;
+            box-shadow: 0 30px 60px -32px rgba(36, 31, 24, .25);
+        }
+
+        .preview-card .cap {
+            font-size: 11px;
+            letter-spacing: .06em;
+            text-transform: uppercase;
+            color: var(--ink-faint);
+            font-weight: 700;
+            margin-bottom: 18px;
+        }
+
+        .preview-badge {
+            display: inline-block;
+            padding: 7px 16px;
+            border-radius: 999px;
+            background: var(--warn-bg);
+            color: var(--warn-text);
+            font-weight: 800;
+            font-size: 18px;
+            margin-bottom: 16px;
+        }
+
+        .preview-card .confidence-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            font-size: 13px;
+            color: var(--ink-muted);
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .preview-card .confidence-row b {
+            font-size: 22px;
+            color: var(--ink);
+        }
+
+        .preview-bar {
+            height: 8px;
+            border-radius: 999px;
+            background: var(--line);
+            overflow: hidden;
+            margin-bottom: 22px;
+        }
+
+        .preview-bar span {
+            display: block;
+            height: 8px;
+            border-radius: 999px;
+            background: var(--primary);
+        }
+
+        .preview-tags {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .preview-tags .row {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            font-size: 13.5px;
+            color: var(--ink-muted);
+            line-height: 1.5;
+        }
+
+        .preview-tags svg {
+            flex: none;
+            margin-top: 2px;
+        }
+
+        /* ---------- WARNING STRIP ---------- */
+        .warning-strip {
+            max-width: 1200px;
             margin: 0 auto;
-            padding: 0 24px 80px;
+            padding: 0 32px 120px;
         }
 
         .warning-box {
-            padding: 28px 32px;
-            border-radius: 16px;
+            padding: 26px 30px;
+            border-radius: 18px;
             background: var(--warn-bg);
             border: 1px solid var(--warn-border);
             display: flex;
@@ -658,183 +724,150 @@
         }
 
         .warning-box strong {
-            font-size: 17px;
+            font-size: 16px;
             color: var(--warn-text);
         }
 
         .warning-box p {
             margin: 0;
-            font-size: 15px;
+            font-size: 14.5px;
             line-height: 1.6;
             color: var(--warn-text);
         }
 
-        /* ---------- ABOUT / METHOD FLOW ---------- */
-        .about-section {
-            background: var(--white);
+        /* ---------- METHOD FLOW (chapter 03) ---------- */
+        .method-flow {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .method-row {
+            display: flex;
+            gap: 20px;
+            padding: 24px 0;
             border-top: 1px solid var(--line);
         }
 
-        .about-inner {
-            max-width: 1160px;
-            margin: 0 auto;
-            padding: 80px 24px;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 56px;
+        .method-row:last-child {
+            border-bottom: 1px solid var(--line);
         }
 
-        .about-copy {
-            flex: 1 1 360px;
-            min-width: 0;
-            display: flex;
-            flex-direction: column;
-            gap: 14px;
-        }
-
-        .about-copy p {
-            margin: 0;
-            font-size: 16px;
-            line-height: 1.7;
-            color: var(--ink-muted);
-        }
-
-        .method-flow {
-            flex: 1 1 420px;
-            min-width: 0;
-            display: flex;
-            flex-direction: column;
-            gap: 0;
-        }
-
-        .method-step {
-            display: flex;
-            gap: 18px;
-            align-items: flex-start;
-        }
-
-        .method-step .dot-col {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            flex: none;
-        }
-
-        .method-step .dot {
-            width: 14px;
-            height: 14px;
+        .method-row .n {
+            width: 36px;
+            height: 36px;
             border-radius: 50%;
-            background: var(--primary);
-            flex: none;
-            transform: scale(0);
-            transition: transform .3s ease;
-        }
-
-        .method-step.is-visible .dot {
-            transform: scale(1);
-        }
-
-        .method-step .dot-line {
-            width: 2px;
-            flex: 1;
-            background: var(--line);
-            margin-top: 4px;
-            min-height: 36px;
-        }
-
-        .method-card {
-            flex: 1;
-            padding: 18px 20px;
-            background: var(--bg);
-            border: 1px solid var(--line-soft);
-            border-radius: 14px;
-            margin-bottom: 24px;
-        }
-
-        .method-card strong {
-            display: block;
-            font-size: 15.5px;
-            margin-bottom: 4px;
-        }
-
-        .method-card span {
-            font-size: 14px;
-            color: var(--ink-muted);
-            line-height: 1.55;
-        }
-
-        /* ---------- CTA ---------- */
-        .cta-band {
-            position: relative;
-            overflow: hidden;
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-        }
-
-        .cta-band::before,
-        .cta-band::after {
-            content: "";
-            position: absolute;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, .08);
-        }
-
-        .cta-band::before {
-            width: 260px;
-            height: 260px;
-            top: -100px;
-            left: 10%;
-        }
-
-        .cta-band::after {
-            width: 180px;
-            height: 180px;
-            bottom: -80px;
-            right: 12%;
-        }
-
-        .cta-band-inner {
-            position: relative;
-            z-index: 1;
-            max-width: 1160px;
-            margin: 0 auto;
-            padding: 64px 24px;
+            border: 1px solid var(--ink);
             display: flex;
-            flex-wrap: wrap;
             align-items: center;
-            justify-content: space-between;
-            gap: 24px;
-        }
-
-        .cta-copy {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            flex: 1 1 420px;
-            min-width: 0;
-        }
-
-        .cta-copy h2 {
-            margin: 0;
-            font-size: 28px;
+            justify-content: center;
+            font-size: 13px;
             font-weight: 800;
+            flex: none;
+            transition: background .25s ease, color .25s ease, border-color .25s ease;
+        }
+
+        .method-row.is-visible .n {
+            background: var(--ink);
             color: var(--white);
         }
 
-        .cta-copy p {
-            margin: 0;
-            font-size: 16px;
-            color: var(--primary-soft);
+        .method-row h3 {
+            margin: 0 0 4px;
+            font-size: 16.5px;
+            font-weight: 700;
         }
 
-        .cta-band .btn-primary {
+        .method-row p {
+            margin: 0;
+            font-size: 14px;
+            line-height: 1.6;
+            color: var(--ink-muted);
+        }
+
+        /* ---------- REVEAL ---------- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(26px);
+            transition: opacity .7s ease, transform .7s cubic-bezier(.2, .8, .2, 1);
+        }
+
+        .reveal.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ---------- CLOSING CTA ---------- */
+        .closing {
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(160deg, var(--primary-dark), var(--accent));
+        }
+
+        .closing::before {
+            content: "";
+            position: absolute;
+            width: 420px;
+            height: 420px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, .08);
+            top: -180px;
+            right: -100px;
+        }
+
+        .closing-inner {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 140px 32px;
+            text-align: center;
+        }
+
+        .closing-inner .chapter-eyebrow {
+            color: rgba(255, 255, 255, .75);
+            justify-content: center;
+            display: flex;
+        }
+
+        .closing-inner h2 {
+            margin: 0 0 24px;
+            font-size: 48px;
+            line-height: 1.12;
+            font-weight: 800;
+            color: var(--white);
+            letter-spacing: -.015em;
+        }
+
+        .closing-inner p {
+            margin: 0 auto 36px;
+            font-size: 17px;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, .85);
+            max-width: 46ch;
+        }
+
+        .closing .btn-primary {
             background: var(--white);
             color: var(--primary-dark);
-            box-shadow: 0 10px 24px -10px rgba(0, 0, 0, .35);
+            box-shadow: 0 16px 30px -14px rgba(0, 0, 0, .35);
         }
 
-        .cta-band .btn-primary:hover {
+        .closing .btn-primary:hover {
             background: var(--bg);
             color: var(--primary-dark);
+        }
+
+        /* ---------- FOOTER ---------- */
+        footer {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 32px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 12px;
+            font-size: 13.5px;
+            color: var(--ink-faint);
         }
 
         /* ---------- FLOATING CTA ---------- */
@@ -842,7 +875,7 @@
             position: fixed;
             right: 24px;
             bottom: 24px;
-            z-index: 90;
+            z-index: 95;
             opacity: 0;
             transform: translateY(16px) scale(.96);
             pointer-events: none;
@@ -855,46 +888,57 @@
             pointer-events: auto;
         }
 
-        .floating-cta a {
-            box-shadow: 0 16px 32px -12px rgba(14, 110, 102, .55);
-        }
-
-        footer {
-            max-width: 1160px;
-            margin: 0 auto;
-            padding: 32px 24px;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            gap: 12px;
-            font-size: 14px;
-            color: var(--ink-muted);
-        }
-
         @media (max-width: 900px) {
-            .benefits-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        @media (max-width: 640px) {
             .hero-copy h1 {
-                font-size: 34px;
+                font-size: 44px;
             }
 
-            .hero-stats {
-                gap: 20px;
+            .chapter-text h2 {
+                font-size: 30px;
             }
 
-            .block-inner,
-            .about-inner {
-                padding-left: 20px;
-                padding-right: 20px;
+            .chapter-inner,
+            .chapter-inner.reverse {
+                flex-direction: column;
             }
 
-            .floating-cta {
-                right: 16px;
-                bottom: 16px;
+            .chapter-inner {
+                padding: 72px 24px;
+                gap: 36px;
+            }
+
+            .chapter-numeral {
+                font-size: 160px;
+            }
+
+            .closing-inner {
+                padding: 88px 24px;
+            }
+
+            .closing-inner h2 {
+                font-size: 32px;
+            }
+
+            .hero-wrap {
+                padding: 0 20px;
+                flex-direction: column;
+            }
+
+            .hero-copy {
+                padding-top: 40px;
+            }
+
+            .nav .container {
+                padding-top: 16px;
+                padding-bottom: 16px;
+            }
+
+            .nav-links {
+                gap: 14px;
+            }
+
+            .nav-link {
+                display: none;
             }
 
             .floating-cta a span {
@@ -906,11 +950,8 @@
 
             html,
             .reveal,
-            .step-line span,
-            .method-step .dot,
-            .hero-blob {
+            .method-row .n {
                 transition: none !important;
-                animation: none !important;
             }
 
             .reveal {
@@ -923,154 +964,161 @@
 
 <body>
 
-    <div class="scroll-progress" id="scrollProgress"></div>
-
     <nav class="nav" id="nav">
         <div class="container">
             <a href="#" class="brand">
                 <span class="brand-mark" aria-hidden="true">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2"
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.4"
                         stroke-linecap="round">
                         <path d="M4 12h2M8 8v8M12 5v14M16 8v8M20 12h0" />
                     </svg>
                 </span>
-                <span class="brand-name">Ampira</span>
+                Ampira
             </a>
-            <div class="nav-links" id="navLinks">
+            <div class="nav-links">
                 <a href="#cara-kerja" class="nav-link" data-section="cara-kerja">Cara kerja</a>
                 <a href="#manfaat" class="nav-link" data-section="manfaat">Manfaat</a>
-                <a href="#tentang" class="nav-link" data-section="tentang">Tentang</a>
+                <a href="#metode" class="nav-link" data-section="metode">Metode</a>
                 <a href="{{ route('masuk') }}" class="btn-outline-nav">Masuk</a>
             </div>
         </div>
     </nav>
 
-    <header class="hero">
-        <span class="hero-blob b1" aria-hidden="true"></span>
-        <span class="hero-blob b2" aria-hidden="true"></span>
-        <div class="hero-inner">
-            <div class="hero-copy">
-                <span class="eyebrow"><span class="dot" aria-hidden="true"></span>Skrining awal, bukan diagnosis</span>
-                <h1>Kenali tanda <em>keterlambatan bicara</em> anak lebih awal</h1>
-                <p class="lead">Jawab pertanyaan singkat tentang kebiasaan bicara anak Anda. Ampira menghitung
-                    tingkat keyakinan indikasi keterlambatan bicara dan memberi saran langkah berikutnya.</p>
-                <div class="hero-actions">
-                    <a href="{{ route('masuk') }}" class="btn-primary">Mulai skrining</a>
-                    <a href="#cara-kerja" class="btn-outline">Lihat cara kerjanya</a>
-                </div>
-                <div class="hero-stats">
-                    <div class="stat"><b data-count-to="3">0</b><span>langkah skrining</span></div>
-                    <div class="stat"><b data-count-to="10">0</b><span>menit mengisi</span></div>
-                    <div class="stat"><b data-count-to="17">0</b><span>pertanyaan perilaku</span></div>
-                </div>
+    <div class="chapter-rail" id="chapterRail">
+        <a href="#hero" data-section="hero"><span class="bar"></span><span class="lbl">00 Awal</span></a>
+        <a href="#cara-kerja" data-section="cara-kerja"><span class="bar"></span><span class="lbl">01 Cara kerja</span></a>
+        <a href="#manfaat" data-section="manfaat"><span class="bar"></span><span class="lbl">02 Manfaat</span></a>
+        <a href="#metode" data-section="metode"><span class="bar"></span><span class="lbl">03 Metode</span></a>
+        <a href="#mulai" data-section="mulai"><span class="bar"></span><span class="lbl">04 Mulai</span></a>
+    </div>
+
+    <header class="hero-wrap" id="hero">
+        <span class="hero-deco ring" data-parallax="0.1" aria-hidden="true"></span>
+        <span class="hero-deco dots" data-parallax="-0.12" aria-hidden="true"></span>
+        <div class="hero-copy">
+            <span class="hero-eyebrow"><span class="dot"></span>Skrining awal &middot; bukan diagnosis</span>
+            <h1>Kenali tanda<em>keterlambatan bicara,</em>lebih awal.</h1>
+            <p class="hero-lead">Jawab pertanyaan singkat tentang kebiasaan bicara anak Anda. Ampira menghitung
+                tingkat keyakinan indikasi keterlambatan bicara dan memberi saran langkah berikutnya.</p>
+            <div class="hero-actions">
+                <a href="{{ route('masuk') }}" class="btn-primary">Mulai skrining</a>
+                <a href="#cara-kerja" class="btn-outline">Lihat cara kerjanya</a>
             </div>
-            <div class="hero-preview-wrap">
-                <div class="hero-preview" id="heroDemo">
-                    <div class="meta"><span id="demoMeta">Pertanyaan 1 dari 3</span><span>Contoh interaktif</span>
-                    </div>
-                    <div class="progress-track">
-                        <div class="progress-fill" id="demoProgress"></div>
-                    </div>
-                    <p class="question" id="demoQuestion"></p>
-                    <div class="hero-options" id="demoOptions"></div>
-                    <p class="hero-preview-foot">Coba klik salah satu pilihan — ini contoh interaktif, bukan
-                        kuesioner sesungguhnya.</p>
+            <div class="hero-stats-row">
+                <div class="stat"><b data-count-to="3">0</b><span>langkah skrining</span></div>
+                <div class="stat"><b data-count-to="10">0</b><span>menit mengisi</span></div>
+                <div class="stat"><b data-count-to="17">0</b><span>pertanyaan perilaku</span></div>
+            </div>
+        </div>
+        <div class="hero-visual-stage">
+            <div class="hero-visual" id="heroDemo">
+                <div class="cap">Contoh interaktif</div>
+                <div class="meta"><span id="demoMeta">Pertanyaan 1 dari 3</span></div>
+                <div class="progress-track">
+                    <div class="progress-fill" id="demoProgress"></div>
                 </div>
+                <p class="question" id="demoQuestion"></p>
+                <div class="hero-visual-options" id="demoOptions"></div>
             </div>
         </div>
     </header>
 
-    <section id="cara-kerja" class="block">
-        <div class="block-inner">
-            <div class="block-head reveal">
-                <span class="kicker">Cara kerja</span>
-                <h2>Tiga langkah, sekitar 10 menit</h2>
+    <section id="cara-kerja" class="chapter">
+        <span class="chapter-numeral left" data-parallax="-0.15" aria-hidden="true">01</span>
+        <div class="chapter-inner">
+            <div class="chapter-text reveal">
+                <div class="chapter-eyebrow">01 / Cara kerja</div>
+                <h2>Tiga langkah,<em>sekitar 10 menit.</em></h2>
                 <p>Anda cukup menjawab berdasarkan apa yang Anda amati sehari-hari. Tidak ada jawaban benar atau
                     salah.</p>
+                <div class="step-tags">
+                    <span class="tag">Data anak</span>
+                    <span class="tag">17 pertanyaan</span>
+                    <span class="tag">Hasil &amp; saran</span>
+                </div>
             </div>
-            <div class="steps">
-                <div class="step">
-                    <div class="step-rail">
-                        <span class="step-num">1</span>
-                        <span class="step-line"><span></span></span>
+            <div class="chapter-visual reveal">
+                <div class="step-list">
+                    <div class="step-row">
+                        <span class="n">01</span>
+                        <div>
+                            <h3>Isi data anak</h3>
+                            <p>Nama, tanggal lahir, dan jenis kelamin. Usia anak menentukan pertanyaan yang muncul.
+                            </p>
+                        </div>
                     </div>
-                    <div class="step-body">
-                        <h3>Isi data anak</h3>
-                        <p>Nama, tanggal lahir, dan jenis kelamin. Usia anak menentukan pertanyaan yang muncul.</p>
+                    <div class="step-row">
+                        <span class="n">02</span>
+                        <div>
+                            <h3>Jawab pertanyaan</h3>
+                            <p>Pilih seberapa sering perilaku itu terjadi: tidak pernah, jarang, kadang, sering,
+                                atau selalu.</p>
+                        </div>
                     </div>
-                </div>
-                <div class="step">
-                    <div class="step-rail">
-                        <span class="step-num">2</span>
-                        <span class="step-line"><span></span></span>
-                    </div>
-                    <div class="step-body">
-                        <h3>Jawab pertanyaan</h3>
-                        <p>Pilih seberapa sering perilaku itu terjadi: tidak pernah, jarang, kadang, sering, atau
-                            selalu.</p>
-                    </div>
-                </div>
-                <div class="step">
-                    <div class="step-rail">
-                        <span class="step-num">3</span>
-                    </div>
-                    <div class="step-body">
-                        <h3>Baca hasil dan saran</h3>
-                        <p>Ampira menampilkan kategori indikasi, tingkat keyakinan, dan langkah yang sebaiknya Anda
-                            ambil.</p>
+                    <div class="step-row">
+                        <span class="n">03</span>
+                        <div>
+                            <h3>Baca hasil dan saran</h3>
+                            <p>Ampira menampilkan kategori indikasi, tingkat keyakinan, dan langkah yang sebaiknya
+                                Anda ambil.</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="manfaat" class="block">
-        <div class="block-inner">
-            <div class="block-head reveal">
-                <span class="kicker">Manfaat</span>
-                <h2>Yang Anda terima setelah skrining</h2>
+    <section id="manfaat" class="chapter tint-soft">
+        <span class="chapter-numeral right" data-parallax="-0.15" aria-hidden="true">02</span>
+        <div class="chapter-inner reverse">
+            <div class="chapter-text reveal">
+                <div class="chapter-eyebrow">02 / Manfaat</div>
+                <h2>Yang Anda terima<em>setelah skrining.</em></h2>
                 <p>Hasil ditulis dengan bahasa sehari-hari supaya mudah dipahami dan bisa Anda bawa saat
                     berkonsultasi.</p>
+                <div class="step-tags">
+                    <span class="tag">Kategori indikasi</span>
+                    <span class="tag">Tingkat keyakinan</span>
+                    <span class="tag">Catatan rujukan</span>
+                </div>
             </div>
-            <div class="benefits-grid">
-                <div class="benefit-card reveal">
-                    <span class="benefit-icon" aria-hidden="true">
-                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0E6E66" stroke-width="2"
-                            stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M20 6 9 17l-5-5" />
-                        </svg>
-                    </span>
-                    <strong>Kategori indikasi</strong>
-                    <span>Rendah, sedang, atau tinggi, berdasarkan jawaban gejala inti bicara dan bahasa.</span>
-                </div>
-                <div class="benefit-card reveal">
-                    <span class="benefit-icon" aria-hidden="true">
-                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0E6E66" stroke-width="2"
-                            stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M20 6 9 17l-5-5" />
-                        </svg>
-                    </span>
-                    <strong>Tingkat keyakinan sistem</strong>
-                    <span>Persentase yang menunjukkan seberapa kuat jawaban Anda mengarah ke kategori tersebut.</span>
-                </div>
-                <div class="benefit-card reveal">
-                    <span class="benefit-icon" aria-hidden="true">
-                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0E6E66" stroke-width="2"
-                            stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M20 6 9 17l-5-5" />
-                        </svg>
-                    </span>
-                    <strong>Catatan rujukan bila perlu</strong>
-                    <span>Jika ada tanda di luar bicara dan bahasa, Ampira menyarankan pemeriksaan lanjutan ke
-                        psikolog.</span>
+            <div class="chapter-visual reveal">
+                <div class="preview-card">
+                    <div class="cap">Pratinjau hasil</div>
+                    <span class="preview-badge">Risiko sedang</span>
+                    <div class="confidence-row"><span>Tingkat keyakinan sistem</span><b>62%</b></div>
+                    <div class="preview-bar"><span style="width:62%"></span></div>
+                    <div class="preview-tags">
+                        <div class="row">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0E6E66"
+                                stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M20 6 9 17l-5-5" />
+                            </svg>
+                            <span>Kategori indikasi: rendah, sedang, atau tinggi.</span>
+                        </div>
+                        <div class="row">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0E6E66"
+                                stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M20 6 9 17l-5-5" />
+                            </svg>
+                            <span>Saran langkah berikutnya yang bisa dibawa ke konsultasi.</span>
+                        </div>
+                        <div class="row">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0E6E66"
+                                stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M20 6 9 17l-5-5" />
+                            </svg>
+                            <span>Catatan rujukan bila ada tanda di luar bicara dan bahasa.</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="warning-section">
+    <div class="warning-strip">
         <div class="warning-box reveal">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#8A4B00" stroke-width="2"
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#8A4B00" stroke-width="2"
                 stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:none">
                 <circle cx="12" cy="12" r="10" />
                 <path d="M12 8v5M12 16h.01" />
@@ -1082,72 +1130,60 @@
                     langsung dengan tenaga profesional.</p>
             </div>
         </div>
-    </section>
+    </div>
 
-    <section id="tentang" class="about-section">
-        <div class="about-inner">
-            <div class="about-copy reveal">
-                <span class="kicker">Tentang Ampira</span>
-                <h2 style="margin:0;font-size:34px;font-weight:800;letter-spacing:-.01em">Metode di baliknya</h2>
+    <section id="metode" class="chapter">
+        <span class="chapter-numeral left" data-parallax="-0.15" aria-hidden="true">03</span>
+        <div class="chapter-inner">
+            <div class="chapter-text reveal">
+                <div class="chapter-eyebrow">03 / Metode</div>
+                <h2>Fuzzy Logic<em>bertemu Certainty Factor.</em></h2>
                 <p>Ampira dikembangkan sebagai penelitian skripsi di Program Studi D4 Teknik Informatika,
-                    Politeknik Negeri Jember.</p>
-                <p>Sistem ini menggabungkan metode Fuzzy Logic dan Certainty Factor. Fuzzy Logic membaca jawaban
-                    yang tidak hitam-putih, seperti &ldquo;kadang&rdquo; atau &ldquo;sering&rdquo;. Certainty Factor
-                    menghitung seberapa yakin jawaban tersebut mengarah pada indikasi keterlambatan bicara.</p>
-                <p>Daftar gejala dan bobot keyakinannya disusun bersama psikolog anak.</p>
+                    Politeknik Negeri Jember. Daftar gejala dan bobot keyakinannya disusun bersama psikolog
+                    anak.</p>
             </div>
-            <div class="method-flow">
-                <div class="method-step reveal">
-                    <div class="dot-col">
-                        <span class="dot"></span>
-                        <span class="dot-line"></span>
+            <div class="chapter-visual reveal">
+                <div class="method-flow">
+                    <div class="method-row">
+                        <span class="n">1</span>
+                        <div>
+                            <h3>Jawaban Anda</h3>
+                            <p>Setiap pertanyaan dijawab dengan skala: tidak pernah, jarang, kadang, sering, atau
+                                selalu.</p>
+                        </div>
                     </div>
-                    <div class="method-card">
-                        <strong>Jawaban Anda</strong>
-                        <span>Setiap pertanyaan dijawab dengan skala: tidak pernah, jarang, kadang, sering, atau
-                            selalu.</span>
+                    <div class="method-row">
+                        <span class="n">2</span>
+                        <div>
+                            <h3>Fuzzy Logic</h3>
+                            <p>Jawaban yang tidak hitam-putih diterjemahkan jadi derajat keanggotaan, bukan
+                                dibulatkan kasar.</p>
+                        </div>
                     </div>
-                </div>
-                <div class="method-step reveal">
-                    <div class="dot-col">
-                        <span class="dot"></span>
-                        <span class="dot-line"></span>
+                    <div class="method-row">
+                        <span class="n">3</span>
+                        <div>
+                            <h3>Certainty Factor</h3>
+                            <p>Bobot keyakinan pakar digabungkan untuk menghitung seberapa kuat indikasinya.</p>
+                        </div>
                     </div>
-                    <div class="method-card">
-                        <strong>Fuzzy Logic</strong>
-                        <span>Jawaban yang tidak hitam-putih diterjemahkan jadi derajat keanggotaan, bukan dibulatkan
-                            kasar.</span>
-                    </div>
-                </div>
-                <div class="method-step reveal">
-                    <div class="dot-col">
-                        <span class="dot"></span>
-                        <span class="dot-line"></span>
-                    </div>
-                    <div class="method-card">
-                        <strong>Certainty Factor</strong>
-                        <span>Bobot keyakinan pakar digabungkan untuk menghitung seberapa kuat indikasinya.</span>
-                    </div>
-                </div>
-                <div class="method-step reveal">
-                    <div class="dot-col">
-                        <span class="dot"></span>
-                    </div>
-                    <div class="method-card" style="margin-bottom:0">
-                        <strong>Hasil &amp; saran</strong>
-                        <span>Kategori indikasi dan langkah lanjutan ditampilkan dengan bahasa sehari-hari.</span>
+                    <div class="method-row">
+                        <span class="n">4</span>
+                        <div>
+                            <h3>Hasil &amp; saran</h3>
+                            <p>Kategori indikasi dan langkah lanjutan ditampilkan dengan bahasa sehari-hari.</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="cta-band">
-        <div class="cta-band-inner">
-            <div class="cta-copy">
-                <h2>Siap memulai skrining?</h2>
-                <p>Gratis. Hasil tersimpan di akun Anda dan bisa dilihat kembali kapan saja.</p>
-            </div>
+    <section id="mulai" class="closing">
+        <div class="closing-inner">
+            <div class="chapter-eyebrow">04 / Mulai</div>
+            <h2>Siap mengenali tanda<br>lebih awal?</h2>
+            <p>Gratis. Hasil tersimpan di akun Anda dan bisa dilihat kembali kapan saja.</p>
             <a href="{{ route('masuk') }}" class="btn-primary">Mulai skrining</a>
         </div>
     </section>
@@ -1164,45 +1200,65 @@
     <script>
         const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-        // Scroll progress bar + nav scrolled state
-        const scrollProgress = document.getElementById('scrollProgress');
+        // Nav scrolled state + floating CTA + scroll progress rail
         const nav = document.getElementById('nav');
         const floatingCta = document.getElementById('floatingCta');
-        const heroHeight = () => document.querySelector('.hero').offsetHeight;
-        const ctaBand = document.querySelector('.cta-band');
+        const heroWrap = document.getElementById('hero');
+        const closing = document.getElementById('mulai');
 
         function onScroll() {
             const scrollTop = window.scrollY;
-            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-            scrollProgress.style.width = (docHeight > 0 ? (scrollTop / docHeight) * 100 : 0) + '%';
-
             nav.classList.toggle('is-scrolled', scrollTop > 8);
 
-            const pastHero = scrollTop > heroHeight() * 0.6;
-            const ctaRect = ctaBand.getBoundingClientRect();
-            const nearCta = ctaRect.top < window.innerHeight;
-            floatingCta.classList.toggle('is-shown', pastHero && !nearCta);
+            const heroBottom = heroWrap.getBoundingClientRect().bottom + scrollTop;
+            const closingTop = closing.getBoundingClientRect().top + scrollTop;
+            const pastHero = scrollTop > heroBottom - window.innerHeight * 0.6;
+            const nearClosing = scrollTop + window.innerHeight > closingTop;
+            floatingCta.classList.toggle('is-shown', pastHero && !nearClosing);
         }
         window.addEventListener('scroll', onScroll, { passive: true });
         onScroll();
 
-        // Scroll-spy nav highlighting
-        const sections = ['cara-kerja', 'manfaat', 'tentang'].map(id => document.getElementById(id)).filter(Boolean);
+        // Parallax: background numerals and hero decorations drift at a different
+        // rate than the foreground content as you scroll past them.
+        const parallaxEls = Array.from(document.querySelectorAll('[data-parallax]'));
+        let parallaxTicking = false;
+        function updateParallax() {
+            parallaxTicking = false;
+            if (reduceMotion) return;
+            const vh = window.innerHeight;
+            parallaxEls.forEach(el => {
+                const speed = Number(el.dataset.parallax);
+                const rect = el.getBoundingClientRect();
+                const center = rect.top + rect.height / 2;
+                const offset = (center - vh / 2) * speed;
+                el.style.transform = `translateY(${offset}px)`;
+            });
+        }
+        window.addEventListener('scroll', () => {
+            if (!parallaxTicking) { parallaxTicking = true; requestAnimationFrame(updateParallax); }
+        }, { passive: true });
+        updateParallax();
+
+        // Chapter rail + nav scroll-spy
+        const spyTargets = ['hero', 'cara-kerja', 'manfaat', 'metode', 'mulai']
+            .map(id => document.getElementById(id))
+            .filter(Boolean);
+        const railLinks = document.querySelectorAll('.chapter-rail a[data-section]');
         const navLinks = document.querySelectorAll('.nav-link[data-section]');
+
         const spyIo = new IntersectionObserver((entries) => {
             entries.forEach(e => {
-                const link = document.querySelector(`.nav-link[data-section="${e.target.id}"]`);
-                if (!link) return;
-                if (e.isIntersecting) {
-                    navLinks.forEach(l => l.classList.remove('is-active'));
-                    link.classList.add('is-active');
-                }
+                if (!e.isIntersecting) return;
+                const id = e.target.id;
+                railLinks.forEach(l => l.classList.toggle('is-active', l.dataset.section === id));
+                navLinks.forEach(l => l.classList.toggle('is-active', l.dataset.section === id));
             });
-        }, { threshold: 0, rootMargin: '-40% 0px -50% 0px' });
-        sections.forEach(s => spyIo.observe(s));
+        }, { threshold: 0, rootMargin: '-45% 0px -50% 0px' });
+        spyTargets.forEach(s => spyIo.observe(s));
 
-        // Reveal on scroll (opacity + translateY, safe for IntersectionObserver ratio)
-        const revealEls = document.querySelectorAll('.reveal, .step, .method-step');
+        // Reveal on scroll
+        const revealEls = document.querySelectorAll('.reveal, .method-row');
         const revealIo = new IntersectionObserver((entries) => {
             entries.forEach(e => {
                 if (e.isIntersecting) {
@@ -1237,21 +1293,9 @@
 
         // Interactive hero demo card
         const demoData = [
-            {
-                q: 'Apakah anak berbicara lebih lambat daripada anak seumurannya?',
-                opts: ['Tidak pernah', 'Jarang', 'Kadang', 'Sering', 'Selalu'],
-                pick: 2,
-            },
-            {
-                q: 'Apakah anak kesulitan memahami perkataan orang dewasa?',
-                opts: ['Tidak pernah', 'Jarang', 'Kadang', 'Sering', 'Selalu'],
-                pick: 1,
-            },
-            {
-                q: 'Apakah anak kesulitan berteman atau ikut bermain bersama anak lain?',
-                opts: ['Tidak pernah', 'Jarang', 'Kadang', 'Sering', 'Selalu'],
-                pick: 0,
-            },
+            { q: 'Apakah anak berbicara lebih lambat daripada anak seumurannya?', opts: ['Tidak pernah', 'Jarang', 'Kadang', 'Sering', 'Selalu'], pick: 2 },
+            { q: 'Apakah anak kesulitan memahami perkataan orang dewasa?', opts: ['Tidak pernah', 'Jarang', 'Kadang', 'Sering', 'Selalu'], pick: 1 },
+            { q: 'Apakah anak kesulitan berteman atau ikut bermain bersama anak lain?', opts: ['Tidak pernah', 'Jarang', 'Kadang', 'Sering', 'Selalu'], pick: 0 },
         ];
         let demoIndex = 0;
         let demoTimer = null;
