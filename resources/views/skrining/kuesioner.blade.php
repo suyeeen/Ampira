@@ -1,371 +1,199 @@
-@extends('layouts.app', ['activeNav' => 'skrining'])
+@extends('layouts.app', ['activeNav' => 'skrining', 'maxWidth' => '720px'])
 
-@section('title', 'Kuesioner — Ampira')
+@section('title', 'Ampira — Kuesioner')
 
 @section('head')
 <style>
-    .q-shell {
-        display: flex;
-        min-height: 100vh;
-    }
-
-    .q-main {
-        flex: 1;
-        padding: 34px 46px;
-        display: flex;
-        flex-direction: column;
-        max-width: 780px;
-    }
-
-    .q-meta {
-        display: flex;
-        justify-content: space-between;
-        align-items: baseline;
-        margin-bottom: 10px;
-    }
-
-    .q-meta .part {
-        font: 600 11px ui-monospace, Menlo, monospace;
-        letter-spacing: .06em;
-        color: var(--primary);
-    }
-
-    .q-meta .count {
-        font: 12.5px 'Public Sans', sans-serif;
-        color: var(--ink-muted);
-    }
-
-    .q-progress {
-        height: 5px;
-        background: #E4E8E6;
-        border-radius: 3px;
-        margin-bottom: 34px;
-    }
-
-    .q-progress span {
-        display: block;
-        width: 33%;
-        height: 5px;
-        background: var(--primary);
-        border-radius: 3px;
-    }
-
-    .q-head {
-        display: flex;
-        gap: 16px;
-        align-items: flex-start;
-        margin-bottom: 8px;
-    }
-
-    .q-head .code {
-        font: 600 11px ui-monospace, Menlo, monospace;
-        color: var(--ink-faintest);
-        padding-top: 12px;
-    }
-
-    .q-head h1 {
-        margin: 0;
-        font: 400 31px/1.32 'Newsreader', serif;
-        color: var(--ink);
-        max-width: 26ch;
-        text-wrap: pretty;
-    }
-
-    .q-sub {
-        margin: 0 0 26px 42px;
-        font: 13.5px/1.6 'Public Sans', sans-serif;
-        color: var(--ink-muted);
-    }
-
-    .q-scale {
-        margin-left: 42px;
-        display: flex;
-        gap: 10px;
-        max-width: 640px;
-    }
-
-    .q-scale button {
-        flex: 1;
-        padding: 16px 8px;
-        text-align: center;
-        background: #fff;
-        border: 1px solid var(--line);
-        border-radius: 9px;
-        font: 500 12.5px/1.3 'Public Sans', sans-serif;
-        color: var(--ink-muted);
-        cursor: pointer;
-    }
-
-    .q-scale button.selected {
-        background: var(--primary);
-        border-color: var(--primary);
-        color: #fff;
-        font-weight: 600;
-    }
-
-    .q-weights {
-        margin: 16px 0 0 42px;
-        display: flex;
-        gap: 8px;
-        flex-wrap: wrap;
-    }
-
-    .q-weights span {
-        padding: 6px 11px;
-        background: #EEF1F0;
-        border-radius: 5px;
-        font: 11px ui-monospace, Menlo, monospace;
-        color: #4D5C57;
-    }
-
-    .q-weights span.cf {
-        background: var(--primary-soft);
-        color: var(--primary);
-    }
-
-    .q-next {
-        margin: 34px 0 0 42px;
-        padding-top: 22px;
-        border-top: 1px solid var(--line-soft);
-        max-width: 640px;
-    }
-
-    .q-next .label {
-        font: 600 11px ui-monospace, Menlo, monospace;
-        letter-spacing: .06em;
-        color: var(--ink-faintest);
-        margin-bottom: 12px;
-    }
-
-    .q-next p {
-        font: 14px/1.6 'Public Sans', sans-serif;
-        color: #B3BCB8;
-    }
-
-    .q-actions {
-        margin-top: auto;
-        padding-top: 24px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-
-    .q-actions .autosave {
-        font: 12.5px 'Public Sans', sans-serif;
-        color: var(--ink-faintest);
-    }
-
-    .q-actions .right {
-        display: flex;
-        gap: 12px;
-        align-items: center;
-    }
-
-    .btn-outline,
-    .btn-primary {
-        padding: 12px 22px;
-        border-radius: 8px;
-        font: 600 13.5px 'Public Sans', sans-serif;
-        border: 1px solid var(--line);
-        background: #fff;
-        color: var(--ink-muted);
-        cursor: pointer;
-        text-decoration: none;
-        display: inline-flex;
-        align-items: center;
-    }
-
-    .btn-primary {
-        border-color: var(--primary);
-        background: var(--primary);
-        color: #fff;
-        padding: 12px 26px;
-    }
-
-    .btn-primary:hover {
-        background: var(--primary-dark);
-    }
-
-    .q-panel {
-        width: 284px;
-        flex-shrink: 0;
-        border-left: 1px solid var(--line-soft);
-        background: #fff;
-        padding: 26px 22px;
+    .q-card {
         display: flex;
         flex-direction: column;
         gap: 22px;
     }
 
-    .q-panel .label {
-        font: 600 11px ui-monospace, Menlo, monospace;
-        letter-spacing: .06em;
-        color: var(--ink-faintest);
+    .q-meta {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 8px;
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--ink-muted);
     }
 
-    .q-panel .cf-value {
-        font: 500 34px 'Newsreader', serif;
-        color: var(--ink);
-    }
-
-    .q-panel .cf-bar {
+    .q-progress {
         height: 6px;
-        background: #E4E8E6;
-        border-radius: 3px;
-        margin-top: 10px;
+        border-radius: 999px;
+        background: var(--line-soft);
     }
 
-    .q-panel .cf-bar span {
+    .q-progress span {
         display: block;
-        width: 62%;
         height: 6px;
-        background: var(--risk-mid);
-        border-radius: 3px;
+        border-radius: 999px;
+        background: var(--primary);
+        transition: width .2s ease;
     }
 
-    .q-panel .steps-label {
-        font: 12px 'Public Sans', sans-serif;
-        color: var(--ink-muted);
-        margin-bottom: 9px;
+    .q-card h1 {
+        margin: 0;
+        font-size: 24px;
+        font-weight: 700;
+        line-height: 1.4;
     }
 
-    .q-panel .steps-calc {
-        font: 11.5px/1.8 ui-monospace, Menlo, monospace;
-        color: #4D5C57;
-    }
-
-    .q-panel .note {
-        padding: 14px;
-        background: #F4F6F5;
-        border-radius: 8px;
-        font: 11.5px/1.6 'Public Sans', sans-serif;
+    .q-card>p {
+        margin: 0;
+        font-size: 15px;
         color: var(--ink-muted);
     }
 
-    .q-panel .footnote {
-        margin-top: auto;
-        font: 11.5px/1.6 'Public Sans', sans-serif;
-        color: var(--ink-faintest);
+    .q-options {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
     }
 
-    @media (max-width: 1000px) {
-        .q-panel {
-            display: none;
-        }
+    .q-option {
+        text-align: left;
+        padding: 14px 18px;
+        border-radius: 12px;
+        font-size: 16px;
+        color: var(--ink);
+        border: 1px solid var(--input-border);
+        background: var(--white);
+        font-weight: 500;
+        font-family: inherit;
+        cursor: pointer;
     }
 
-    @media (max-width: 640px) {
-        .q-main {
-            padding: 26px 22px;
-            min-width: 0;
-        }
+    .q-option.selected {
+        border: 2px solid var(--primary);
+        background: var(--primary-soft);
+        font-weight: 700;
+    }
 
-        .q-head .code {
-            padding-top: 4px;
-        }
+    .q-footer {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+        padding-top: 8px;
+        border-top: 1px solid var(--line-soft);
+    }
 
-        .q-head h1 {
-            font-size: 24px;
-        }
+    .q-footer .btn-sm-outline,
+    .q-footer .btn-sm-primary {
+        padding: 12px 20px;
+        border-radius: 12px;
+        font-weight: 700;
+        font-size: 15px;
+        font-family: inherit;
+        text-decoration: none;
+        cursor: pointer;
+    }
 
-        .q-sub,
-        .q-scale,
-        .q-weights,
-        .q-next {
-            margin-left: 0;
-        }
+    .q-footer .btn-sm-outline {
+        border: 1px solid var(--input-border);
+        background: var(--white);
+        color: var(--ink);
+        font-weight: 600;
+    }
 
-        .q-scale {
-            flex-wrap: wrap;
-        }
+    .q-footer .btn-sm-primary {
+        border: 0;
+        background: var(--primary);
+        color: var(--white);
+    }
 
-        .q-scale button {
-            flex: 1 1 calc(33.333% - 7px);
-            min-width: 0;
-        }
+    .q-footer .btn-sm-primary:hover {
+        background: var(--primary-dark);
+        color: var(--white);
+    }
 
-        .q-actions {
-            flex-wrap: wrap;
-            gap: 12px;
-        }
+    .q-footer button:disabled {
+        cursor: not-allowed;
+        opacity: .45;
+    }
 
-        .q-actions .right {
-            width: 100%;
-            justify-content: space-between;
-        }
+    .q-footer .q-terjawab {
+        font-size: 14px;
+        color: var(--ink-muted);
     }
 </style>
 @endsection
 
 @section('content')
-<div class="q-shell">
-    <div class="q-main">
-        <div class="q-meta">
-            <span class="part">BAGIAN 1 DARI 3 · GEJALA INTI BICARA–BAHASA</span>
-            <span class="count">8 dari 24 pertanyaan</span>
-        </div>
-        <div class="q-progress"><span></span></div>
+<ol aria-label="Tahapan skrining" class="stepper">
+    <li class="done">1. Data anak</li>
+    <li class="current">2. Kuesioner</li>
+    <li>3. Hasil</li>
+</ol>
 
-        <div class="q-head">
-            <span class="code">G08</span>
-            <h1>Anak belum menggabungkan dua kata menjadi satu frasa, misalnya &ldquo;mau susu&rdquo;.</h1>
-        </div>
-        <p class="q-sub">Seberapa sering Anda mengamati hal ini dalam dua minggu terakhir?</p>
-
-        <div class="q-scale" role="radiogroup" aria-label="Frekuensi pengamatan">
-            <button type="button" data-scale="tidak-pernah">Tidak<br>pernah</button>
-            <button type="button" data-scale="jarang">Jarang</button>
-            <button type="button" data-scale="kadang">Kadang</button>
-            <button type="button" data-scale="sering" class="selected">Sering</button>
-            <button type="button" data-scale="selalu">Selalu</button>
-        </div>
-
-        <div class="q-weights">
-            <span>μ Sering = 0,75</span>
-            <span>μ Selalu = 0,25</span>
-            <span class="cf">CF pakar = 0,80</span>
-        </div>
-
-        <div class="q-next">
-            <div class="label">BERIKUTNYA</div>
-            <p>G09 · Anak tidak menoleh saat namanya dipanggil dari jarak dekat.<br>
-                G10 · Pengucapan anak sulit dimengerti orang selain keluarga inti.</p>
-        </div>
-
-        <div class="q-actions">
-            <a href="{{ route('skrining.profil') }}" class="btn-outline">&larr; Sebelumnya</a>
-            <div class="right">
-                <span class="autosave">Jawaban tersimpan otomatis</span>
-                <a href="{{ route('hasil') }}" class="btn-primary">Lanjut &rarr;</a>
-            </div>
-        </div>
+<section aria-live="polite" class="card q-card">
+    <div class="q-meta">
+        <span id="q-counter"></span>
+        <span id="q-bagian"></span>
     </div>
-
-    <aside class="q-panel">
-        <div class="label">PANEL PERHITUNGAN · MODE PAKAR</div>
-        <div>
-            <div style="font:12px 'Public Sans',sans-serif;color:var(--ink-muted);margin-bottom:6px">CF gabungan
-                sementara</div>
-            <div class="cf-value">0,62</div>
-            <div class="cf-bar"><span></span></div>
-        </div>
-        <div>
-            <div class="steps-label">Langkah kombinasi</div>
-            <div class="steps-calc">CF&#8321; = 0,80<br>CF&#8322; = 0,45 &rarr; 0,89<br>CF&#8323; = &minus;0,20 &rarr;
-                0,72<br>CF&#8324; = 0,30 &rarr; <b style="color:var(--ink)">0,62</b></div>
-        </div>
-        <div class="note">Panel ini hanya tampil untuk akun pakar dan saat pengujian validitas — orang tua tidak
-            melihat angka mentah.</div>
-        <div class="footnote">Jalur B (gejala penyerta) diproses terpisah di Bagian 3.</div>
-    </aside>
-</div>
+    <div class="q-progress"><span id="q-progress-fill"></span></div>
+    <h1 id="q-text"></h1>
+    <p>Pilih yang paling sesuai dengan keadaan anak sehari-hari.</p>
+    <div role="group" aria-label="Pilihan jawaban" class="q-options" id="q-options"></div>
+    <div class="q-footer">
+        <button type="button" id="btn-prev" class="btn-sm-outline">Sebelumnya</button>
+        <span class="q-terjawab" id="q-terjawab"></span>
+        <button type="button" id="btn-next" class="btn-sm-primary">Berikutnya</button>
+        <a href="{{ route('hasil') }}" id="btn-hasil" class="btn-sm-primary" style="display:none">Lihat hasil</a>
+    </div>
+</section>
 
 <script>
-    document.querySelectorAll('.q-scale button').forEach(btn => {
-        btn.addEventListener('click', () => {
-            document.querySelectorAll('.q-scale button').forEach(b => b.classList.remove('selected'));
-            btn.classList.add('selected');
+    const pertanyaan = @json($pertanyaan);
+    const pilihanJawaban = @json($pilihanJawaban);
+    const total = pertanyaan.length;
+    let i = 0;
+    const jawaban = {};
+
+    const elCounter = document.getElementById('q-counter');
+    const elBagian = document.getElementById('q-bagian');
+    const elProgress = document.getElementById('q-progress-fill');
+    const elText = document.getElementById('q-text');
+    const elOptions = document.getElementById('q-options');
+    const elTerjawab = document.getElementById('q-terjawab');
+    const btnPrev = document.getElementById('btn-prev');
+    const btnNext = document.getElementById('btn-next');
+    const btnHasil = document.getElementById('btn-hasil');
+
+    function render() {
+        const soal = pertanyaan[i];
+        elCounter.textContent = `Pertanyaan ${i + 1} dari ${total}`;
+        elBagian.textContent = soal.bagian === 'inti' ? 'Gejala inti bicara dan bahasa' : 'Gejala penyerta';
+        elProgress.style.width = Math.round((i + 1) / total * 100) + '%';
+        elText.textContent = soal.teks;
+
+        elOptions.innerHTML = '';
+        pilihanJawaban.forEach((label, k) => {
+            const dipilih = jawaban[i] === k;
+            const btn = document.createElement('button');
+            btn.type = 'button';
+            btn.textContent = label;
+            btn.className = 'q-option' + (dipilih ? ' selected' : '');
+            btn.setAttribute('aria-pressed', dipilih ? 'true' : 'false');
+            btn.addEventListener('click', () => { jawaban[i] = k; render(); });
+            elOptions.appendChild(btn);
         });
-    });
+
+        btnPrev.disabled = i === 0;
+        elTerjawab.textContent = `${Object.keys(jawaban).length} dari ${total} terjawab`;
+
+        const diAkhir = i === total - 1;
+        btnNext.style.display = diAkhir ? 'none' : '';
+        btnHasil.style.display = diAkhir ? '' : 'none';
+    }
+
+    btnPrev.addEventListener('click', () => { i = Math.max(0, i - 1); render(); });
+    btnNext.addEventListener('click', () => { i = Math.min(total - 1, i + 1); render(); });
+
+    render();
 </script>
 @endsection

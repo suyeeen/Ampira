@@ -4,43 +4,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-    <title>Masuk — Ampira</title>
+    <title>Ampira — Masuk</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Public+Sans:wght@400;500;600;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
         rel="stylesheet">
     <style>
         :root {
-            --primary: #2F6F63;
-            --primary-dark: #1F4E45;
-            --primary-soft: #E8F0ED;
-            --ink: #16211D;
-            --ink-soft: #3D4A45;
-            --ink-muted: #66736E;
-            --ink-faint: #8B9793;
-            --line: rgba(22, 33, 29, .12);
-            --line-soft: rgba(22, 33, 29, .08);
-            --bg: #FBFCFB;
+            --primary: #0E6E66;
+            --primary-dark: #0A524C;
+            --ink: #16212B;
+            --ink-muted: #4B5A66;
+            --line: #D9E1E6;
+            --input-border: #C5D1D8;
+            --bg: #F6F8F9;
             --white: #FFFFFF;
         }
 
         * {
             box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        html {
-            scroll-behavior: smooth;
         }
 
         body {
-            min-height: 100vh;
+            margin: 0;
             background: var(--bg);
             color: var(--ink);
-            font-family: 'Public Sans', system-ui, sans-serif;
-            -webkit-font-smoothing: antialiased;
+            font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
 
         a {
@@ -51,326 +44,176 @@
             color: var(--primary-dark);
         }
 
-        .auth-shell {
-            min-height: 100vh;
-            display: flex;
+        header {
+            background: var(--white);
+            border-bottom: 1px solid var(--line);
         }
 
-        /* ---------- BRAND PANEL ---------- */
-        .auth-brand {
-            flex: 0 0 420px;
-            background: var(--primary);
-            color: #fff;
-            padding: 44px 40px;
+        header .container {
+            max-width: 1120px;
+            margin: 0 auto;
+            padding: 16px 24px;
             display: flex;
-            flex-direction: column;
+            align-items: center;
             justify-content: space-between;
+            gap: 16px;
         }
 
-        .brand-mark-row {
+        .brand {
             display: flex;
             align-items: center;
             gap: 10px;
+            text-decoration: none;
+            color: var(--ink);
         }
 
         .brand-mark {
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            background: #fff;
-            color: var(--primary);
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            background: var(--primary);
             display: flex;
             align-items: center;
             justify-content: center;
-            font: 600 15px 'Newsreader', serif;
-            flex-shrink: 0;
         }
 
         .brand-name {
-            font: 600 15px 'Public Sans', sans-serif;
-            letter-spacing: .02em;
+            font-size: 20px;
+            font-weight: 800;
         }
 
-        .brand-copy h1 {
-            margin: 0 0 16px;
-            font: 400 40px/1.14 'Newsreader', serif;
-            letter-spacing: -.01em;
-            text-wrap: pretty;
-        }
-
-        .brand-copy p {
-            font: 15px/1.65 'Public Sans', sans-serif;
-            color: rgba(255, 255, 255, .78);
-            max-width: 34ch;
-        }
-
-        .brand-foot {
-            font: 12px/1.6 'Public Sans', sans-serif;
-            color: rgba(255, 255, 255, .6);
-            border-top: 1px solid rgba(255, 255, 255, .18);
-            padding-top: 16px;
-        }
-
-        /* ---------- FORM PANEL ---------- */
-        .auth-panel {
-            flex: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 48px 24px;
-        }
-
-        .auth-card {
-            width: 100%;
-            max-width: 380px;
-        }
-
-        .auth-tabs {
-            display: flex;
-            gap: 4px;
-            padding: 4px;
-            background: #F1F3F2;
-            border-radius: 8px;
-            margin-bottom: 32px;
-            width: 260px;
-            max-width: 100%;
-        }
-
-        .auth-tab {
-            flex: 1;
-            text-align: center;
-            padding: 8px;
-            border-radius: 6px;
-            font: 600 13px 'Public Sans', sans-serif;
-            border: 0;
-            background: none;
-            cursor: pointer;
+        .back-link {
+            padding: 10px 14px;
+            text-decoration: none;
             color: var(--ink-muted);
             font-weight: 500;
+            font-size: 15px;
         }
 
-        .auth-tab[aria-selected="true"] {
-            background: #fff;
-            color: var(--ink);
-            font-weight: 600;
-            box-shadow: 0 1px 2px rgba(22, 33, 29, .08);
+        main {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            padding: 64px 24px;
         }
 
-        .auth-card h2 {
-            margin: 0 0 6px;
-            font: 500 26px/1.2 'Newsreader', serif;
-            color: var(--ink);
-        }
-
-        .auth-card>p {
-            margin: 0 0 28px;
-            font: 13.5px/1.5 'Public Sans', sans-serif;
-            color: var(--ink-muted);
-        }
-
-        .auth-form {
+        form {
+            width: 100%;
+            max-width: 440px;
+            background: var(--white);
+            border: 1px solid var(--line);
+            border-radius: 20px;
+            padding: 36px;
+            box-sizing: border-box;
             display: flex;
             flex-direction: column;
-            gap: 16px;
+            gap: 20px;
+        }
+
+        form h1 {
+            margin: 0;
+            font-size: 28px;
+            font-weight: 800;
+        }
+
+        form>p.lead {
+            margin: 0;
+            font-size: 15px;
+            color: var(--ink-muted);
+            line-height: 1.5;
         }
 
         .field {
             display: flex;
             flex-direction: column;
-            gap: 7px;
+            gap: 8px;
         }
 
         .field label {
-            font: 600 12px 'Public Sans', sans-serif;
-            color: var(--ink-soft);
+            font-size: 14px;
+            font-weight: 600;
         }
 
         .field input {
-            padding: 12px 14px;
-            border: 1px solid var(--line);
-            border-radius: 8px;
-            font: 14px 'Public Sans', sans-serif;
-            color: var(--ink);
-            background: #fff;
-            width: 100%;
-        }
-
-        .field input::placeholder {
-            color: var(--ink-faint);
+            padding: 13px 14px;
+            border-radius: 10px;
+            border: 1px solid var(--input-border);
+            font: inherit;
+            font-size: 15px;
         }
 
         .field input:focus {
             outline: none;
             border-color: var(--primary);
-            box-shadow: 0 0 0 3px var(--primary-soft);
-        }
-
-        .field-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font: 12.5px 'Public Sans', sans-serif;
-        }
-
-        .checkbox {
-            display: flex;
-            align-items: center;
-            gap: 7px;
-            color: var(--ink-muted);
-            cursor: pointer;
-        }
-
-        .checkbox input {
-            width: 15px;
-            height: 15px;
-            accent-color: var(--primary);
-        }
-
-        .field-row a {
-            text-decoration: none;
-            font-weight: 600;
         }
 
         .btn-primary {
-            margin-top: 6px;
-            padding: 13px;
-            text-align: center;
+            padding: 14px;
+            border-radius: 12px;
             background: var(--primary);
-            color: #fff;
+            color: var(--white);
             border: 0;
-            border-radius: 8px;
-            font: 600 14px 'Public Sans', sans-serif;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 16px;
+            text-align: center;
             cursor: pointer;
-            transition: background .15s ease;
+            font-family: inherit;
         }
 
         .btn-primary:hover {
             background: var(--primary-dark);
         }
 
-        .divider {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin: 4px 0;
-            font: 11px 'Public Sans', sans-serif;
-            color: var(--ink-faint);
-        }
-
-        .divider span {
-            flex: 1;
-            height: 1px;
-            background: var(--line);
-        }
-
-        .btn-outline {
-            padding: 12px;
+        .signup-line {
+            margin: 0;
+            font-size: 15px;
+            color: var(--ink-muted);
             text-align: center;
-            background: #fff;
-            border: 1px solid var(--line);
-            border-radius: 8px;
-            font: 600 13.5px 'Public Sans', sans-serif;
-            color: var(--ink-soft);
-            cursor: pointer;
-            transition: border-color .15s ease, background .15s ease;
         }
 
-        .btn-outline:hover {
-            border-color: var(--primary);
-            background: var(--primary-soft);
-        }
-
-        .auth-disclaimer {
-            margin: 30px 0 0;
-            font: 11.5px/1.6 'Public Sans', sans-serif;
-            color: var(--ink-faint);
-        }
-
-        /* ---------- RESPONSIVE ---------- */
-        @media (max-width: 880px) {
-            .auth-shell {
-                flex-direction: column;
-            }
-
-            .auth-brand {
-                flex: none;
-                padding: 32px 28px;
-                gap: 28px;
-            }
-
-            .brand-copy h1 {
-                font-size: 30px;
-            }
-
-            .brand-copy p {
-                max-width: none;
-            }
-
-            .auth-panel {
-                padding: 40px 24px 56px;
-            }
+        .signup-line a {
+            font-weight: 600;
         }
     </style>
 </head>
 
 <body>
 
-    <div class="auth-shell">
-        <div class="auth-brand">
-            <div class="brand-mark-row">
-                <span class="brand-mark" aria-hidden="true">A</span>
+    <header>
+        <div class="container">
+            <a href="{{ route('welcome') }}" class="brand">
+                <span class="brand-mark" aria-hidden="true">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2"
+                        stroke-linecap="round">
+                        <path d="M4 12h2M8 8v8M12 5v14M16 8v8M20 12h0" />
+                    </svg>
+                </span>
                 <span class="brand-name">Ampira</span>
-            </div>
-            <div class="brand-copy">
-                <h1>Skrining dini indikasi gangguan bicara &amp; bahasa anak</h1>
-                <p>Jawab kuesioner perilaku sesuai pengamatan Anda di rumah. Sistem menghitung tingkat keyakinan
-                    indikasi, bukan diagnosis.</p>
-            </div>
-            <div class="brand-foot">
-                Sistem pakar hybrid Fuzzy Mamdani &amp; Certainty Factor<br>
-                Klinik Psikologi Ekadya × Politeknik Negeri Jember
-            </div>
+            </a>
+            <a href="{{ route('welcome') }}" class="back-link">Kembali ke beranda</a>
         </div>
+    </header>
 
-        <div class="auth-panel">
-            <div class="auth-card">
-                <div class="auth-tabs" role="tablist">
-                    <button type="button" class="auth-tab" role="tab" aria-selected="true">Masuk</button>
-                    <button type="button" class="auth-tab" role="tab" aria-selected="false">Daftar</button>
-                </div>
-
-                <h2>Selamat datang kembali</h2>
-                <p>Masuk untuk melanjutkan skrining atau melihat riwayat.</p>
-
-                <form class="auth-form"
-                    onsubmit="event.preventDefault(); window.location.href='{{ route('skrining.profil') }}';">
-                    <div class="field">
-                        <label for="identity">Email atau nomor HP</label>
-                        <input type="text" id="identity" name="identity" autocomplete="username"
-                            placeholder="ibu.sari@gmail.com">
-                    </div>
-                    <div class="field">
-                        <label for="password">Kata sandi</label>
-                        <input type="password" id="password" name="password" autocomplete="current-password"
-                            placeholder="••••••••">
-                    </div>
-                    <div class="field-row">
-                        <label class="checkbox">
-                            <input type="checkbox" name="remember">
-                            Ingat saya di perangkat ini
-                        </label>
-                        <a href="#">Lupa sandi?</a>
-                    </div>
-                    <button type="submit" class="btn-primary">Masuk</button>
-                    <div class="divider"><span></span>atau<span></span></div>
-                    <button type="button" class="btn-outline">Masuk sebagai psikolog / pakar</button>
-                </form>
-
-                <p class="auth-disclaimer">Hasil Ampira adalah skrining awal dan tidak menggantikan pemeriksaan
-                    tenaga profesional.</p>
+    <main>
+        <form onsubmit="event.preventDefault(); window.location.href='{{ route('skrining.profil') }}';">
+            <div>
+                <h1>Masuk ke akun Anda</h1>
+                <p class="lead">Hasil skrining tersimpan di akun ini dan bisa Anda lihat kembali.</p>
             </div>
-        </div>
-    </div>
+            <div class="field">
+                <label for="email">Email</label>
+                <input id="email" name="email" type="email" placeholder="nama@email.com" autocomplete="username">
+            </div>
+            <div class="field">
+                <label for="sandi">Kata sandi</label>
+                <input id="sandi" name="sandi" type="password" placeholder="Minimal 8 karakter"
+                    autocomplete="current-password">
+            </div>
+            <button type="submit" class="btn-primary">Masuk</button>
+            <p class="signup-line">Belum punya akun? <a href="#">Daftar di sini</a></p>
+        </form>
+    </main>
 
 </body>
 

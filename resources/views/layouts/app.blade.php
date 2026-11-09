@@ -8,219 +8,367 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Public+Sans:wght@400;500;600;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
         rel="stylesheet">
     <style>
         :root {
-            --primary: #2F6F63;
-            --primary-dark: #1F4E45;
-            --primary-soft: #E8F0ED;
-            --ink: #16211D;
-            --ink-soft: #3D4A45;
-            --ink-muted: #66736E;
-            --ink-faint: #8B9793;
-            --ink-faintest: #9AA5A1;
-            --line: rgba(22, 33, 29, .12);
-            --line-soft: rgba(22, 33, 29, .08);
-            --bg: #FBFCFB;
+            --primary: #0E6E66;
+            --primary-dark: #0A524C;
+            --primary-soft: #E3F2F0;
+            --ink: #16212B;
+            --ink-muted: #4B5A66;
+            --line: #D9E1E6;
+            --line-soft: #E6ECEF;
+            --input-border: #C5D1D8;
+            --bg: #F6F8F9;
             --white: #FFFFFF;
-            --risk-low: #2F6F63;
-            --risk-mid: #9A6B1C;
-            --risk-high: #A3483C;
-            --risk-low-bg: #E8F0ED;
-            --risk-mid-bg: #F6EEDD;
-            --risk-high-bg: #F6E7E4;
+            --warn-bg: #FFF4E0;
+            --warn-border: #F0D3A3;
+            --warn-text: #5C3200;
+            --warn-icon: #8A4B00;
+            --low-bg: #E3F2F0;
+            --low-text: #0A524C;
+            --high-bg: #FDE7E7;
+            --high-text: #8A1C1C;
         }
 
         * {
             box-sizing: border-box;
-            margin: 0;
-            padding: 0;
         }
 
         body {
-            min-height: 100vh;
+            margin: 0;
             background: var(--bg);
             color: var(--ink);
-            font-family: 'Public Sans', system-ui, sans-serif;
-            -webkit-font-smoothing: antialiased;
+            font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+            min-height: 100vh;
         }
 
         a {
-            color: inherit;
-        }
-
-        /* ---------- APP SHELL ---------- */
-        .app-shell {
-            min-height: 100vh;
-            display: flex;
-        }
-
-        .app-sidebar {
-            width: 212px;
-            flex-shrink: 0;
-            background: #fff;
-            border-right: 1px solid var(--line-soft);
-            padding: 22px 16px;
-            display: flex;
-            flex-direction: column;
-            gap: 26px;
-        }
-
-        .sidebar-brand {
-            display: flex;
-            align-items: center;
-            gap: 9px;
-            padding: 0 6px;
-        }
-
-        .sidebar-brand .brand-mark {
-            width: 26px;
-            height: 26px;
-            border-radius: 50%;
-            background: var(--primary);
-            color: #fff;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font: 600 13px 'Newsreader', serif;
-            flex-shrink: 0;
-        }
-
-        .sidebar-brand span:last-child {
-            font: 600 14px 'Public Sans', sans-serif;
-            color: var(--ink);
-        }
-
-        .sidebar-nav {
-            display: flex;
-            flex-direction: column;
-            gap: 2px;
-        }
-
-        .sidebar-nav a {
-            padding: 9px 12px;
-            border-radius: 7px;
-            font: 500 13px 'Public Sans', sans-serif;
-            color: var(--ink-muted);
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .sidebar-nav a.active {
-            background: var(--primary-soft);
-            font-weight: 600;
             color: var(--primary);
         }
 
-        .sidebar-nav a:hover:not(.active) {
-            background: #F4F6F5;
+        a:hover {
+            color: var(--primary-dark);
         }
 
-        .sidebar-nav .badge {
-            min-width: 17px;
-            height: 17px;
-            padding: 0 5px;
-            border-radius: 9px;
-            background: var(--primary);
-            color: #fff;
+        .container {
+            max-width: 1120px;
+            margin: 0 auto;
+            padding: 16px 24px;
+        }
+
+        /* ---------- HEADER ---------- */
+        .app-header {
+            background: var(--white);
+            border-bottom: 1px solid var(--line);
+        }
+
+        .app-header .container {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+        }
+
+        .brand {
             display: flex;
             align-items: center;
-            justify-content: center;
-            font: 600 10px 'Public Sans', sans-serif;
-        }
-
-        .sidebar-help {
-            margin-top: auto;
-            padding: 13px;
-            background: #F4F6F5;
-            border-radius: 8px;
-            font: 11.5px/1.55 'Public Sans', sans-serif;
-            color: var(--ink-muted);
-        }
-
-        .sidebar-help a {
+            gap: 10px;
             text-decoration: none;
-            font-weight: 600;
-            color: var(--ink-muted);
-        }
-
-        .app-main {
-            flex: 1;
-            min-width: 0;
-        }
-
-        /* ---------- STEPPER (dipakai di skrining) ---------- */
-        .stepper {
-            display: flex;
-            align-items: center;
-            margin-bottom: 32px;
-        }
-
-        .stepper-step {
-            display: flex;
-            align-items: center;
-            gap: 9px;
-        }
-
-        .stepper-step span:first-child {
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font: 600 11.5px 'Public Sans', sans-serif;
-            border: 1px solid var(--line);
-            color: var(--ink-faintest);
-        }
-
-        .stepper-step span:last-child {
-            font: 500 12.5px 'Public Sans', sans-serif;
-            color: var(--ink-faintest);
-        }
-
-        .stepper-step.done span:first-child,
-        .stepper-step.current span:first-child {
-            background: var(--primary);
-            border-color: var(--primary);
-            color: #fff;
-        }
-
-        .stepper-step.current span:last-child {
-            font-weight: 600;
             color: var(--ink);
         }
 
-        .stepper-line {
-            width: 56px;
-            height: 1px;
-            background: var(--line);
-            margin: 0 14px;
+        .brand:hover {
+            color: var(--ink);
         }
 
-        @media (max-width: 880px) {
-            .app-shell {
-                flex-direction: column;
+        .brand-mark {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            background: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex: none;
+        }
+
+        .brand-name {
+            font-size: 20px;
+            font-weight: 800;
+        }
+
+        .app-nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px;
+        }
+
+        .nav-link {
+            padding: 10px 14px;
+            border-radius: 10px;
+            text-decoration: none;
+            color: var(--ink-muted);
+            font-weight: 500;
+            font-size: 15px;
+        }
+
+        .nav-link:hover {
+            color: var(--ink);
+        }
+
+        .nav-link.active {
+            background: var(--primary-soft);
+            color: var(--primary-dark);
+            font-weight: 600;
+        }
+
+        /* ---------- MAIN / STEPPER ---------- */
+        main {
+            max-width: {{ $maxWidth ?? '1120px' }};
+            margin: 0 auto;
+            padding: 48px 24px 64px;
+            display: flex;
+            flex-direction: column;
+            gap: 28px;
+        }
+
+        .stepper {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .stepper li {
+            padding: 8px 14px;
+            border-radius: 999px;
+            background: var(--line-soft);
+            color: var(--ink-muted);
+        }
+
+        .stepper li.current {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        .stepper li.done {
+            background: var(--primary-soft);
+            color: var(--primary-dark);
+        }
+
+        /* ---------- FORM ---------- */
+        .card {
+            background: var(--white);
+            border: 1px solid var(--line);
+            border-radius: 20px;
+            padding: 32px;
+        }
+
+        .field {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .field label {
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .field input,
+        .field select {
+            padding: 13px 14px;
+            border-radius: 10px;
+            border: 1px solid var(--input-border);
+            font: inherit;
+            font-size: 15px;
+            width: 100%;
+            background: var(--white);
+            color: var(--ink);
+        }
+
+        .field input:focus,
+        .field select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px var(--primary-soft);
+        }
+
+        .radio-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .radio-option {
+            flex: 1 1 160px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 13px 14px;
+            border-radius: 10px;
+            border: 1px solid var(--input-border);
+            font-size: 15px;
+        }
+
+        .btn-primary,
+        .btn-outline {
+            padding: 14px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 16px;
+            text-align: center;
+            border: 0;
+            cursor: pointer;
+            font-family: inherit;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            color: var(--white);
+        }
+
+        .btn-outline {
+            border: 1px solid var(--input-border);
+            background: var(--white);
+            color: var(--ink);
+            font-weight: 600;
+        }
+
+        .btn-outline:hover {
+            color: var(--ink);
+            border-color: var(--ink-muted);
+        }
+
+        .btn-primary:disabled,
+        .btn-outline:disabled {
+            cursor: not-allowed;
+            opacity: .45;
+        }
+
+        /* ---------- ALERTS ---------- */
+        .alert-sample {
+            margin: 0;
+            padding: 12px 16px;
+            border-radius: 10px;
+            background: #EEF1F4;
+            border: 1px dashed #9AA8B2;
+            font-size: 14px;
+            color: #3A4853;
+        }
+
+        .alert-warning {
+            background: var(--warn-bg);
+            border: 1px solid var(--warn-border);
+            border-radius: 20px;
+            padding: 28px 32px;
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+        }
+
+        .alert-warning h2 {
+            margin: 0;
+            font-size: 17px;
+            font-weight: 700;
+            color: var(--warn-text);
+        }
+
+        .alert-warning p {
+            margin: 0;
+            font-size: 15px;
+            line-height: 1.6;
+            color: var(--warn-text);
+        }
+
+        /* ---------- BADGES ---------- */
+        .badge {
+            padding: 4px 12px;
+            border-radius: 999px;
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        .badge-rendah {
+            background: var(--low-bg);
+            color: var(--low-text);
+        }
+
+        .badge-sedang {
+            background: var(--warn-bg);
+            color: var(--warn-text);
+        }
+
+        .badge-tinggi {
+            background: var(--high-bg);
+            color: var(--high-text);
+        }
+
+        /* ---------- TABLE ---------- */
+        .table-wrap {
+            background: var(--white);
+            border: 1px solid var(--line);
+            border-radius: 20px;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            min-width: 720px;
+            border-collapse: collapse;
+            font-size: 15px;
+        }
+
+        thead tr {
+            background: #F1F5F7;
+            text-align: left;
+        }
+
+        th {
+            padding: 14px 20px;
+            font-size: 13px;
+            font-weight: 700;
+            color: #3A4853;
+        }
+
+        td {
+            padding: 16px 20px;
+            border-top: 1px solid var(--line-soft);
+        }
+
+        .visually-hidden {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            overflow: hidden;
+            clip: rect(0 0 0 0);
+        }
+
+        @media (max-width: 640px) {
+            .app-header .container {
+                padding: 14px 20px;
             }
 
-            .app-sidebar {
-                width: 100%;
-                flex-direction: row;
-                align-items: center;
-                gap: 16px;
-                padding: 14px 18px;
-                overflow-x: auto;
+            main {
+                padding: 32px 18px 48px;
             }
 
-            .sidebar-nav {
-                flex-direction: row;
-            }
-
-            .sidebar-help {
-                display: none;
+            .card {
+                padding: 22px;
             }
         }
     </style>
@@ -228,23 +376,30 @@
 </head>
 
 <body>
-    <div class="app-shell">
-        <aside class="app-sidebar">
-            <div class="sidebar-brand"><span class="brand-mark" aria-hidden="true">A</span><span>Ampira</span></div>
-            <nav class="sidebar-nav">
+    <header class="app-header">
+        <div class="container">
+            <a href="{{ route('welcome') }}" class="brand">
+                <span class="brand-mark" aria-hidden="true">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2"
+                        stroke-linecap="round">
+                        <path d="M4 12h2M8 8v8M12 5v14M16 8v8M20 12h0" />
+                    </svg>
+                </span>
+                <span class="brand-name">Ampira</span>
+            </a>
+            <nav aria-label="Menu akun" class="app-nav">
                 <a href="{{ route('skrining.profil') }}"
-                    class="{{ ($activeNav ?? '') === 'skrining' ? 'active' : '' }}">Skrining baru</a>
-                <a href="{{ route('riwayat') }}" class="{{ ($activeNav ?? '') === 'riwayat' ? 'active' : '' }}">Riwayat</a>
-                <a href="#" class="{{ ($activeNav ?? '') === 'chat' ? 'active' : '' }}">Chat psikolog<span
-                        class="badge">2</span></a>
-                <a href="#" class="{{ ($activeNav ?? '') === 'pengaturan' ? 'active' : '' }}">Pengaturan</a>
+                    class="nav-link {{ ($activeNav ?? '') === 'skrining' ? 'active' : '' }}">Skrining baru</a>
+                <a href="{{ route('riwayat') }}"
+                    class="nav-link {{ ($activeNav ?? '') === 'riwayat' ? 'active' : '' }}">Riwayat</a>
+                <a href="{{ route('welcome') }}" class="nav-link">Keluar</a>
             </nav>
-            <div class="sidebar-help">Butuh bantuan mengisi?<br><a href="#">Hubungi klinik</a></div>
-        </aside>
-        <main class="app-main">
-            @yield('content')
-        </main>
-    </div>
+        </div>
+    </header>
+
+    <main>
+        @yield('content')
+    </main>
 </body>
 
 </html>
