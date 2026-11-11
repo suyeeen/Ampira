@@ -392,6 +392,8 @@
                     class="nav-link {{ ($activeNav ?? '') === 'skrining' ? 'active' : '' }}">Skrining baru</a>
                 <a href="{{ route('riwayat') }}"
                     class="nav-link {{ ($activeNav ?? '') === 'riwayat' ? 'active' : '' }}">Riwayat</a>
+                <a href="{{ route('chat') }}"
+                    class="nav-link {{ ($activeNav ?? '') === 'chat' ? 'active' : '' }}">Chat psikolog</a>
                 <a href="{{ route('welcome') }}" class="nav-link">Keluar</a>
             </nav>
         </div>

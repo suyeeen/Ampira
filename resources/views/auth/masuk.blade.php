@@ -212,6 +212,7 @@
             </div>
             <button type="submit" class="btn-primary">Masuk</button>
             <p class="signup-line">Belum punya akun? <a href="#">Daftar di sini</a></p>
+            <p class="signup-line"><a href="{{ route('demo.peran') }}">Lihat demo semua peran</a></p>
         </form>
     </main>
 
