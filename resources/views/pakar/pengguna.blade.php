@@ -12,12 +12,12 @@
     }
 
     .pu-list {
-        flex: 1 1 260px;
+        flex: 1 1 300px;
         min-width: 0;
-        background: var(--white);
+        background: var(--surface);
         border: 1px solid var(--line);
-        border-radius: 16px;
-        padding: 8px;
+        border-radius: var(--radius-card);
+        padding: 10px;
         display: flex;
         flex-direction: column;
         gap: 4px;
@@ -25,12 +25,12 @@
 
     .pu-list button {
         text-align: left;
-        padding: 12px 14px;
-        border-radius: 12px;
+        padding: 12px;
+        border-radius: 14px;
         border: 0;
         display: flex;
-        flex-direction: column;
-        gap: 4px;
+        gap: 12px;
+        align-items: center;
         color: var(--ink);
         background: transparent;
         font-family: inherit;
@@ -38,7 +38,31 @@
     }
 
     .pu-list button.active {
-        background: #E8EEFB;
+        background: var(--brand-soft);
+    }
+
+    .pu-list .av {
+        width: 38px;
+        height: 38px;
+        border-radius: 999px;
+        background: var(--chip);
+        color: var(--muted);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 14px;
+        flex: none;
+    }
+
+    .pu-list button.active .av {
+        background: var(--deep);
+        color: var(--lime);
+    }
+
+    .pu-list .col {
+        min-width: 0;
+        flex: 1;
     }
 
     .pu-list .row1 {
@@ -47,14 +71,22 @@
         gap: 8px;
     }
 
-    .pu-list .row1 span:last-child {
+    .pu-list .row1 span.w {
         font-size: 12px;
-        color: var(--ink-muted);
+        color: var(--muted);
+        flex: none;
     }
 
     .pu-list .row2 {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: 4px;
+    }
+
+    .pu-list .row2 span {
         font-size: 13px;
-        color: var(--ink-muted);
+        color: var(--muted);
     }
 
     .pu-detail {
@@ -65,15 +97,12 @@
         gap: 16px;
     }
 
-    .pu-summary {
-        background: var(--white);
-        border: 1px solid var(--line);
-        border-radius: 16px;
-        padding: 22px;
+    .pu-summary .head {
         display: flex;
         flex-wrap: wrap;
-        gap: 20px;
         align-items: center;
+        justify-content: space-between;
+        gap: 12px;
     }
 
     .pu-summary h2 {
@@ -83,27 +112,28 @@
     }
 
     .pu-summary .sub {
-        font-size: 14px;
-        color: var(--ink-muted);
+        font-size: 13px;
+        color: var(--muted);
     }
 
     .pu-chips {
         display: flex;
         gap: 12px;
         flex-wrap: wrap;
+        margin-top: 14px;
     }
 
     .pu-chip {
         padding: 10px 14px;
         border-radius: 12px;
-        background: #F1F5F7;
+        background: var(--chip);
         display: flex;
         flex-direction: column;
     }
 
     .pu-chip span {
         font-size: 12px;
-        color: var(--ink-muted);
+        color: var(--muted);
     }
 
     .pu-chip strong {
@@ -111,9 +141,9 @@
     }
 
     .pu-chatcard {
-        background: var(--white);
+        background: var(--surface);
         border: 1px solid var(--line);
-        border-radius: 16px;
+        border-radius: var(--radius-card);
         overflow: hidden;
         display: flex;
         flex-direction: column;
@@ -125,7 +155,7 @@
         flex-direction: column;
         gap: 12px;
         min-height: 220px;
-        background: #FBFCFC;
+        background: var(--bg);
     }
 
     .pu-msg {
@@ -149,74 +179,70 @@
         padding: 11px 15px;
         font-size: 15px;
         line-height: 1.5;
+        border-radius: 16px;
     }
 
     .pu-msg.ortu .pu-bubble {
-        background: #fff;
+        background: var(--surface);
         border: 1px solid var(--line);
-        border-radius: 16px 16px 16px 4px;
     }
 
     .pu-msg.pakar .pu-bubble {
-        background: #1D4ED8;
+        background: var(--deep);
         color: #fff;
-        border-radius: 16px 16px 4px 16px;
     }
 
     .pu-msg.sys .pu-bubble {
-        color: var(--ink-muted);
+        color: var(--muted);
         font-size: 14px;
     }
 
     .pu-form {
         padding: 14px 20px;
-        border-top: 1px solid var(--line-soft);
+        border-top: 1px solid var(--line);
         display: flex;
         gap: 12px;
     }
 
-    .pu-form input {
+    .pu-form .input-chip {
         flex: 1;
         min-width: 0;
-        padding: 12px 14px;
-        border-radius: 12px;
-        border: 1px solid var(--input-border);
-        font: inherit;
-        font-size: 15px;
+        background: var(--chip);
+        border-radius: var(--radius-pill);
+        padding: 12px 16px;
     }
 
-    .pu-form button {
-        padding: 12px 18px;
-        border-radius: 12px;
+    .pu-form .input-chip input {
+        width: 100%;
         border: 0;
-        background: #1D4ED8;
-        color: #fff;
-        font-weight: 700;
+        background: transparent;
+        font: inherit;
         font-size: 15px;
-        font-family: inherit;
-        cursor: pointer;
+        outline: none;
     }
 </style>
 @endsection
 
 @section('content')
-<div>
-    <h1 style="margin:0;font-size:28px;font-weight:800">Pengguna dan chat</h1>
-    <p style="margin:0;font-size:15px;color:var(--ink-muted)">Data contoh. Pilih pengguna untuk melihat hasil
-        skrining anak dan percakapannya.</p>
+<div class="panel-head">
+    <div>
+        <h1>Pengguna dan chat</h1>
+        <p>Data contoh &middot; Pilih pengguna untuk melihat hasil skrining dan percakapan.</p>
+    </div>
 </div>
 
 <div class="pu-wrap">
     <section aria-label="Daftar pengguna" class="pu-list" id="puList"></section>
 
     <section aria-label="Detail pengguna" class="pu-detail">
-        <div class="pu-summary" id="puSummary"></div>
+        <div class="kartu pu-summary" id="puSummary"></div>
         <div class="pu-chatcard">
             <div class="pu-thread" id="puThread" aria-live="polite"></div>
             <form class="pu-form" id="puForm">
                 <label for="puInput" class="visually-hidden">Balas pesan</label>
-                <input id="puInput" type="text" placeholder="Balas ke orang tua&hellip;" autocomplete="off">
-                <button type="submit">Kirim</button>
+                <span class="input-chip"><input id="puInput" type="text" placeholder="Balas ke orang tua&hellip;"
+                        autocomplete="off"></span>
+                <x-tombol variant="utama" type="submit">Kirim</x-tombol>
             </form>
         </div>
     </section>
@@ -239,7 +265,12 @@
             btn.type = 'button';
             btn.className = k === selected ? 'active' : '';
             btn.setAttribute('aria-pressed', k === selected ? 'true' : 'false');
-            btn.innerHTML = `<span class="row1"><strong style="font-size:15px">${p.ortu}</strong><span>${p.waktu}</span></span><span class="row2">${p.anak} &middot; ${p.kategori}</span>`;
+            btn.innerHTML = `
+                <span class="av">${p.ortu.slice(-1)}</span>
+                <span class="col">
+                    <span class="row1"><strong style="font-size:14px;font-weight:700">${p.ortu}</strong><span class="w">${p.waktu}</span></span>
+                    <span class="row2"><span>${p.anak}</span></span>
+                </span>`;
             btn.addEventListener('click', () => { selected = k; puInput.value = ''; renderAll(); });
             puList.appendChild(btn);
         });
@@ -248,14 +279,16 @@
     function renderSummary() {
         const p = data[selected];
         puSummary.innerHTML = `
-            <div style="flex:1 1 220px;display:flex;flex-direction:column;gap:4px">
-                <h2>${p.anak}</h2>
-                <span class="sub">Orang tua: ${p.ortu}</span>
+            <div class="head">
+                <div>
+                    <h2>${p.anak}</h2>
+                    <span class="sub">${p.ortu} &middot; aktif ${p.waktu} lalu</span>
+                </div>
             </div>
             <div class="pu-chips">
                 <div class="pu-chip"><span>Indikasi</span><strong>${p.kategori}</strong></div>
                 <div class="pu-chip"><span>Keyakinan</span><strong>${p.cf}</strong></div>
-                <div class="pu-chip"><span>Flag Jalur B</span><strong>${p.flag}</strong></div>
+                <div class="pu-chip"><span>Catatan rujukan</span><strong>${p.flag}</strong></div>
             </div>`;
     }
 

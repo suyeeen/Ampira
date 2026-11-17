@@ -8,54 +8,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <title>@yield('title', 'Ampira — Panel')</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
-        rel="stylesheet">
+    @include('partials.tokens')
     <style>
-        :root {
-            --brand: #0E6E66;
-            --accent: {{ $isPakar ? '#1D4ED8' : '#6D28D9' }};
-            --accent-dark: {{ $isPakar ? '#1E3A8A' : '#4C1D95' }};
-            --ink: #16212B;
-            --ink-muted: #4B5A66;
-            --line: #D9E1E6;
-            --line-soft: #E6ECEF;
-            --input-border: #C5D1D8;
-            --bg: #F6F8F9;
-            --white: #FFFFFF;
-            --warn-bg: #FFF4E0;
-            --warn-text: #5C3200;
-            --sidebar-bg: {{ $isPakar ? '#FFFFFF' : '#16212B' }};
-            --sidebar-text: {{ $isPakar ? '#16212B' : '#FFFFFF' }};
-            --sidebar-muted: {{ $isPakar ? '#3A4853' : '#C9D2D9' }};
-            --sidebar-active-bg: {{ $isPakar ? '#E8EEFB' : '#2E3A46' }};
-            --sidebar-label: {{ $isPakar ? '#1D4ED8' : '#C4B5FD' }};
-        }
-
-        * {
-            box-sizing: border-box;
-        }
-
-        body {
-            margin: 0;
-            background: var(--bg);
-            color: var(--ink);
-            font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
-            min-height: 100vh;
-        }
-
-        a {
-            color: inherit;
-        }
-
-        button,
-        select {
-            font: inherit;
-            cursor: pointer;
-        }
-
         .panel-shell {
             display: flex;
             flex-wrap: wrap;
@@ -63,54 +17,65 @@
         }
 
         .panel-sidebar {
-            flex: 1 1 240px;
+            flex: 1 1 264px;
             max-width: 100%;
-            background: var(--sidebar-bg);
-            color: var(--sidebar-text);
-            padding: 20px 16px;
+            width: 264px;
+            background: var(--deep);
+            padding: 24px 16px;
             box-sizing: border-box;
             display: flex;
             flex-direction: column;
-            gap: 20px;
-            @if ($isPakar)
-                border-right: 1px solid var(--line);
-            @endif
+            justify-content: space-between;
+            gap: 24px;
+        }
+
+        .panel-top {
+            display: flex;
+            flex-direction: column;
+            gap: 28px;
         }
 
         .panel-brand {
             display: flex;
+            flex-direction: column;
+            gap: 10px;
+            padding: 0 8px;
+        }
+
+        .panel-brand .logo-row {
+            display: flex;
             align-items: center;
             gap: 10px;
             text-decoration: none;
-            color: var(--sidebar-text);
-            padding: 0 8px;
+            color: #fff;
         }
 
         .panel-brand .mark {
             width: 36px;
             height: 36px;
-            border-radius: 10px;
-            background: var(--brand);
+            border-radius: 11px;
+            background: var(--lime);
             display: flex;
             align-items: center;
             justify-content: center;
             flex: none;
         }
 
-        .panel-brand .names {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .panel-brand .names span:first-child {
-            font-size: 18px;
+        .panel-brand .wordmark {
+            font-size: 19px;
             font-weight: 800;
+            color: #fff;
         }
 
-        .panel-brand .names span:last-child {
+        .panel-role-chip {
+            display: inline-flex;
+            align-self: flex-start;
+            background: var(--deep2);
+            color: var(--lime);
+            border-radius: var(--radius-pill);
+            padding: 5px 12px;
             font-size: 12px;
             font-weight: 600;
-            color: var(--sidebar-label);
         }
 
         .panel-nav {
@@ -120,210 +85,256 @@
         }
 
         .panel-nav a {
-            padding: 11px 12px;
-            border-radius: 10px;
-            text-decoration: none;
-            color: var(--sidebar-muted);
-            font-weight: 500;
-            font-size: 15px;
             display: flex;
             align-items: center;
-            justify-content: space-between;
+            gap: 12px;
+            text-decoration: none;
+            padding: 11px 14px;
+            border-radius: 12px;
+            color: var(--side-text);
+            font-weight: 500;
+            font-size: 15px;
+        }
+
+        .panel-nav a .titik {
+            width: 8px;
+            height: 8px;
+            border-radius: 4px;
+            background: var(--side-text);
+            opacity: .5;
+            flex: none;
         }
 
         .panel-nav a.active {
-            background: var(--sidebar-active-bg);
-            color: {{ $isPakar ? '#1E3A8A' : '#FFFFFF' }};
+            background: var(--lime);
+            color: var(--deep);
             font-weight: 700;
         }
 
-        .panel-nav a .badge {
-            padding: 0 8px;
-            border-radius: 999px;
-            background: var(--accent);
-            color: #FFFFFF;
-            font-size: 12px;
-            font-weight: 700;
-            line-height: 22px;
+        .panel-nav a.active .titik {
+            background: var(--deep);
+            opacity: 1;
         }
 
-        .panel-access-note {
-            margin-top: auto;
+        .panel-account {
+            background: var(--deep2);
+            border-radius: 16px;
             padding: 14px;
-            border-radius: 12px;
-            background: #F1F5F7;
-            font-size: 13px;
-            line-height: 1.5;
-            color: #3A4853;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
         }
 
-        .panel-access-note strong {
-            display: block;
-            color: var(--ink);
+        .panel-account .row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .panel-account .avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 999px;
+            background: var(--lime);
+            color: var(--deep);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 13px;
+            flex: none;
+        }
+
+        .panel-account .names {
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+        }
+
+        .panel-account .names strong {
+            color: #fff;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .panel-account .names span {
+            color: var(--side-text);
+            font-size: 12px;
+        }
+
+        .panel-account .note {
+            color: var(--side-text);
+            font-size: 12px;
+            line-height: 1.5;
         }
 
         .panel-main {
             flex: 999 1 560px;
             min-width: 0;
-            padding: 32px;
+            padding: 28px 40px 48px;
             box-sizing: border-box;
             display: flex;
             flex-direction: column;
-            gap: 22px;
+            gap: 24px;
         }
 
         .panel-head {
             display: flex;
             flex-wrap: wrap;
-            align-items: flex-end;
+            align-items: center;
             justify-content: space-between;
             gap: 16px;
         }
 
         .panel-head h1 {
-            margin: 0;
+            margin: 0 0 4px;
             font-size: 28px;
             font-weight: 800;
         }
 
         .panel-head p {
             margin: 0;
-            font-size: 15px;
-            color: var(--ink-muted);
+            font-size: 14px;
+            color: var(--muted);
+        }
+
+        .panel-head-tools {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .panel-search {
+            width: 240px;
+            max-width: 100%;
+            background: var(--surface);
+            border: 1px solid var(--line);
+            border-radius: var(--radius-pill);
+            padding: 10px 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        .panel-icon-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 999px;
+            background: var(--surface);
+            border: 1px solid var(--line);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex: none;
         }
 
         .filter-group {
             display: flex;
-            gap: 6px;
+            gap: 4px;
             padding: 4px;
-            border-radius: 12px;
-            background: var(--line-soft);
+            border-radius: var(--radius-pill);
+            background: var(--chip);
         }
 
         .filter-group button {
-            padding: 8px 14px;
-            border-radius: 9px;
+            padding: 8px 16px;
+            border-radius: var(--radius-pill);
             border: 0;
-            font-size: 14px;
+            font-size: 15px;
             font-weight: 600;
             background: transparent;
-            color: var(--ink-muted);
+            color: var(--muted);
+            font-family: inherit;
+            cursor: pointer;
         }
 
         .filter-group button.active {
-            background: var(--white);
-            color: var(--ink);
+            background: var(--deep);
+            color: #fff;
         }
 
         .stat-grid {
             display: flex;
             flex-wrap: wrap;
-            gap: 16px;
+            gap: 20px;
         }
 
         .stat-card {
-            flex: 1 1 160px;
-            padding: 18px;
-            background: var(--white);
+            flex: 1 1 200px;
+            background: var(--surface);
             border: 1px solid var(--line);
-            border-radius: 14px;
+            border-radius: var(--radius-card);
+            padding: 20px;
             display: flex;
             flex-direction: column;
-            gap: 4px;
+            gap: 10px;
         }
 
-        .stat-card span {
+        .stat-card.sorot {
+            background: var(--deep);
+            border-color: var(--deep);
+        }
+
+        .stat-card .top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .stat-card .top span {
             font-size: 13px;
-            color: var(--ink-muted);
+            font-weight: 500;
+            color: var(--muted);
+        }
+
+        .stat-card.sorot .top span {
+            color: var(--side-text);
+        }
+
+        .stat-card .ic {
+            width: 32px;
+            height: 32px;
+            border-radius: 10px;
+            background: var(--chip);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex: none;
+        }
+
+        .stat-card.sorot .ic {
+            background: var(--deep2);
         }
 
         .stat-card strong {
-            font-size: 26px;
+            font-size: 28px;
+            font-weight: 800;
         }
 
-        .table-wrap {
-            background: var(--white);
-            border: 1px solid var(--line);
-            border-radius: 16px;
-            overflow-x: auto;
-        }
-
-        table {
-            width: 100%;
-            min-width: 560px;
-            border-collapse: collapse;
-            font-size: 15px;
-        }
-
-        thead tr {
-            background: #F1F5F7;
-            text-align: left;
-        }
-
-        th {
-            padding: 12px 18px;
-            font-size: 13px;
-            color: #3A4853;
-        }
-
-        td {
-            padding: 12px 18px;
-            border-top: 1px solid var(--line-soft);
-        }
-
-        .visually-hidden {
-            position: absolute;
-            width: 1px;
-            height: 1px;
-            overflow: hidden;
-            clip: rect(0 0 0 0);
-        }
-
-        .btn-accent,
-        .btn-outline {
-            padding: 11px 18px;
-            border-radius: 12px;
-            border: 0;
-            font-weight: 700;
-            font-size: 15px;
-            cursor: pointer;
-            font-family: inherit;
-        }
-
-        .btn-accent {
-            background: var(--accent);
-            color: #FFFFFF;
-        }
-
-        .btn-outline {
-            border: 1px solid var(--input-border);
-            background: var(--white);
-            color: var(--ink);
-            font-weight: 600;
-        }
-
-        .status-pill {
-            padding: 3px 10px;
-            border-radius: 999px;
-            background: var(--warn-bg);
-            color: var(--warn-text);
-            font-size: 13px;
-            font-weight: 600;
+        .stat-card.sorot strong {
+            color: var(--lime);
         }
 
         @media (max-width: 900px) {
             .panel-shell {
                 flex-direction: column;
+                flex-wrap: nowrap;
             }
 
             .panel-sidebar {
+                width: 100%;
                 flex-direction: row;
                 flex-wrap: wrap;
                 align-items: center;
-                width: 100%;
-                border-right: 0;
-                border-bottom: 1px solid var(--line);
-                gap: 12px;
+            }
+
+            .panel-top {
+                flex-direction: row;
+                flex-wrap: wrap;
+                align-items: center;
+                gap: 16px;
             }
 
             .panel-nav {
@@ -331,23 +342,23 @@
                 flex-wrap: wrap;
             }
 
-            .panel-access-note {
+            .panel-account {
                 display: none;
             }
 
             .panel-main {
                 padding: 22px 18px;
             }
-        }
 
-        @media (max-width: 560px) {
             .panel-head {
                 flex-direction: column;
                 align-items: stretch;
             }
+        }
 
-            .filter-group {
-                justify-content: space-between;
+        @media (max-width: 560px) {
+            .stat-card {
+                flex: 1 1 100%;
             }
         }
     </style>
@@ -357,41 +368,57 @@
 <body>
     <div class="panel-shell">
         <aside class="panel-sidebar">
-            <a href="{{ route('demo.peran') }}" class="panel-brand">
-                <span class="mark" aria-hidden="true">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2"
-                        stroke-linecap="round">
-                        <path d="M4 12h2M8 8v8M12 5v14M16 8v8M20 12h0" />
-                    </svg>
-                </span>
-                <span class="names">
-                    <span>Ampira</span>
-                    <span>{{ $isPakar ? 'Panel pakar' : 'Panel admin' }}</span>
-                </span>
-            </a>
-            <nav aria-label="{{ $isPakar ? 'Menu pakar' : 'Menu admin' }}" class="panel-nav">
-                @if ($isPakar)
-                    <a href="{{ route('pakar.gejala') }}"
-                        class="{{ request()->routeIs('pakar.gejala') ? 'active' : '' }}">Gejala dan bobot CF</a>
-                    <a href="{{ route('pakar.pengguna') }}"
-                        class="{{ request()->routeIs('pakar.pengguna') ? 'active' : '' }}">Pengguna dan chat
-                        <span class="badge">2</span></a>
-                @else
-                    <a href="{{ route('admin.gejala') }}"
-                        class="{{ request()->routeIs('admin.gejala') ? 'active' : '' }}">Gejala dan bobot CF</a>
-                    <a href="#">Batas himpunan fuzzy</a>
-                    <a href="#">Kategori hasil</a>
-                    <a href="#">Klaster Jalur B</a>
-                    <a href="{{ route('admin.pengguna') }}"
-                        class="{{ request()->routeIs('admin.pengguna') ? 'active' : '' }}">Pengguna dan peran</a>
-                @endif
-                <a href="{{ route('demo.peran') }}">Keluar</a>
-            </nav>
-            @if ($isPakar)
-                <div class="panel-access-note">
-                    <strong>Akses: hanya lihat</strong>Perubahan basis pengetahuan dilakukan oleh admin.
+            <div class="panel-top">
+                <div class="panel-brand">
+                    <a href="{{ route('demo.peran') }}" class="logo-row">
+                        <span class="mark" aria-hidden="true">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#051C12"
+                                stroke-width="2" stroke-linecap="round">
+                                <path d="M4 12h1M8 8v8M12 5v14M16 8v8M20 12h0" />
+                            </svg>
+                        </span>
+                        <span class="wordmark">Ampira</span>
+                    </a>
+                    <span class="panel-role-chip">{{ $isPakar ? 'Panel pakar' : 'Panel admin' }}</span>
                 </div>
-            @endif
+                <nav aria-label="{{ $isPakar ? 'Menu pakar' : 'Menu admin' }}" class="panel-nav">
+                    @if ($isPakar)
+                        <a href="{{ route('pakar.gejala') }}"
+                            class="{{ request()->routeIs('pakar.gejala') ? 'active' : '' }}"><span
+                                class="titik"></span>Gejala dan bobot CF</a>
+                        <a href="{{ route('pakar.pengguna') }}"
+                            class="{{ request()->routeIs('pakar.pengguna') ? 'active' : '' }}"><span
+                                class="titik"></span>Pengguna dan chat</a>
+                        <a href="{{ route('demo.peran') }}"><span class="titik"></span>Keluar</a>
+                    @else
+                        <a href="{{ route('admin.ringkasan') }}"
+                            class="{{ request()->routeIs('admin.ringkasan') ? 'active' : '' }}"><span
+                                class="titik"></span>Ringkasan</a>
+                        <a href="{{ route('admin.gejala') }}"
+                            class="{{ request()->routeIs('admin.gejala') ? 'active' : '' }}"><span
+                                class="titik"></span>Gejala dan bobot CF</a>
+                        <a href="#"><span class="titik"></span>Batas himpunan fuzzy</a>
+                        <a href="#"><span class="titik"></span>Kategori hasil</a>
+                        <a href="#"><span class="titik"></span>Klaster Jalur B</a>
+                        <a href="{{ route('admin.pengguna') }}"
+                            class="{{ request()->routeIs('admin.pengguna') ? 'active' : '' }}"><span
+                                class="titik"></span>Pengguna dan peran</a>
+                        <a href="{{ route('demo.peran') }}"><span class="titik"></span>Keluar</a>
+                    @endif
+                </nav>
+            </div>
+            <div class="panel-account">
+                <div class="row">
+                    <span class="avatar" aria-hidden="true">{{ $isPakar ? 'P' : 'AD' }}</span>
+                    <div class="names">
+                        <strong>{{ $isPakar ? '[Nama psikolog]' : 'Admin Ampira' }}</strong>
+                        <span>{{ $isPakar ? 'Pakar' : 'Admin' }}</span>
+                    </div>
+                </div>
+                @if ($isPakar)
+                    <p class="note">Akses hanya lihat. Perubahan basis pengetahuan dilakukan admin.</p>
+                @endif
+            </div>
         </aside>
 
         <main class="panel-main">

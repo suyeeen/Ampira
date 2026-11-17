@@ -11,6 +11,20 @@ Route::get('/masuk', function () {
     return view('auth.masuk');
 })->name('masuk');
 
+Route::get('/beranda', function () {
+    return view('beranda', [
+        'anak' => [
+            'nama' => 'Anak A',
+            'usia' => '31 bulan',
+            'jenisKelamin' => 'Laki-laki',
+        ],
+        'skriningTerakhir' => '12 Nov 2026',
+        'keyakinanPersen' => 62,
+        'kategori' => 'Sedang',
+        'saranPemeriksaan' => 'Pendengaran',
+    ]);
+})->name('beranda');
+
 Route::get('/skrining/profil', function () {
     return view('skrining.profil');
 })->name('skrining.profil');
@@ -122,3 +136,27 @@ Route::get('/admin/pengguna', function () {
 
     return view('admin.pengguna', ['pengguna' => $pengguna]);
 })->name('admin.pengguna');
+
+Route::get('/admin', function () {
+    $totalGejala = Gejala::count();
+    $cfTerisi = Gejala::whereNotNull('cf_pakar')->count();
+
+    return view('admin.ringkasan', [
+        'skriningBulanIni' => 24,
+        'penggunaTerdaftar' => 6,
+        'totalGejala' => $totalGejala,
+        'cfTerisi' => $cfTerisi,
+        'skriningPerMinggu' => [3, 5, 4, 6, 2, 7, 5, 6],
+        'sebaranKategori' => [
+            ['label' => 'Rendah', 'jumlah' => 9, 'warna' => 'ok'],
+            ['label' => 'Sedang', 'jumlah' => 11, 'warna' => 'brand'],
+            ['label' => 'Tinggi', 'jumlah' => 4, 'warna' => 'danger'],
+        ],
+        'saranJalurB' => ['Pendengaran · 5', 'Autisme · 3', 'ADHD · 2', 'Penglihatan · 1'],
+        'skriningTerbaru' => [
+            ['tanggal' => '12 Nov 2026', 'ortu' => 'Orang tua A', 'anak' => 'Anak A · 31 bln', 'keyakinan' => '62%', 'kategori' => 'Sedang', 'saran' => 'Pendengaran'],
+            ['tanggal' => '11 Nov 2026', 'ortu' => 'Orang tua B', 'anak' => 'Anak B · 28 bln', 'keyakinan' => '81%', 'kategori' => 'Tinggi', 'saran' => 'Tidak ada'],
+            ['tanggal' => '10 Nov 2026', 'ortu' => 'Orang tua C', 'anak' => 'Anak C · 34 bln', 'keyakinan' => '48%', 'kategori' => 'Rendah', 'saran' => 'Tidak ada'],
+        ],
+    ]);
+})->name('admin.ringkasan');

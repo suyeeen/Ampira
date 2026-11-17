@@ -5,174 +5,186 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <title>Ampira — Masuk</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
-        rel="stylesheet">
+    @include('partials.tokens')
     <style>
-        :root {
-            --primary: #0E6E66;
-            --primary-dark: #0A524C;
-            --ink: #16212B;
-            --ink-muted: #4B5A66;
-            --line: #D9E1E6;
-            --input-border: #C5D1D8;
-            --bg: #F6F8F9;
-            --white: #FFFFFF;
-        }
-
-        * {
-            box-sizing: border-box;
-        }
-
         body {
-            margin: 0;
-            background: var(--bg);
-            color: var(--ink);
-            font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+            min-height: 100vh;
+        }
+
+        .masuk-shell {
             min-height: 100vh;
             display: flex;
-            flex-direction: column;
+            flex-wrap: wrap;
         }
 
-        a {
-            color: var(--primary);
-        }
-
-        a:hover {
-            color: var(--primary-dark);
-        }
-
-        header {
-            background: var(--white);
-            border-bottom: 1px solid var(--line);
-        }
-
-        header .container {
-            max-width: 1120px;
-            margin: 0 auto;
-            padding: 16px 24px;
+        .masuk-kiri {
+            flex: 1 1 560px;
+            min-width: 0;
+            background: var(--deep);
+            color: #fff;
+            padding: 52px 64px;
             display: flex;
-            align-items: center;
+            flex-direction: column;
             justify-content: space-between;
-            gap: 16px;
+            gap: 32px;
         }
 
-        .brand {
+        .brand-row {
             display: flex;
             align-items: center;
             gap: 10px;
-            text-decoration: none;
-            color: var(--ink);
         }
 
-        .brand-mark {
+        .brand-row .mark {
             width: 36px;
             height: 36px;
-            border-radius: 10px;
-            background: var(--primary);
+            border-radius: 11px;
+            background: var(--lime);
             display: flex;
             align-items: center;
             justify-content: center;
         }
 
-        .brand-name {
-            font-size: 20px;
+        .brand-row .wordmark {
+            font-size: 19px;
             font-weight: 800;
         }
 
-        .back-link {
-            padding: 10px 14px;
-            text-decoration: none;
-            color: var(--ink-muted);
-            font-weight: 500;
-            font-size: 15px;
-        }
-
-        main {
-            flex: 1;
+        .masuk-mid {
             display: flex;
-            justify-content: center;
-            padding: 64px 24px;
+            flex-direction: column;
+            gap: 22px;
         }
 
-        form {
+        .masuk-chip {
+            align-self: flex-start;
+            background: var(--deep2);
+            border-radius: var(--radius-pill);
+            padding: 6px 14px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--lime);
+        }
+
+        .masuk-mid h1 {
+            margin: 0;
+            font-size: 44px;
+            font-weight: 800;
+            line-height: 1.15;
+        }
+
+        .masuk-mid>p {
+            margin: 0;
+            font-size: 17px;
+            line-height: 1.55;
+            color: var(--side-text);
+        }
+
+        .fitur-list {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .fitur-list .baris {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .fitur-list .dot {
+            width: 26px;
+            height: 26px;
+            border-radius: 999px;
+            background: var(--deep2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex: none;
+        }
+
+        .fitur-list span.teks {
+            font-size: 15px;
+            font-weight: 500;
+        }
+
+        .masuk-note {
+            background: var(--deep2);
+            border-radius: 16px;
+            padding: 18px;
+            display: flex;
+            gap: 12px;
+            font-size: 14px;
+            color: var(--side-text);
+            line-height: 1.55;
+        }
+
+        .masuk-kanan {
+            flex: 1 1 400px;
+            min-width: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 24px;
+        }
+
+        .kartu-masuk {
             width: 100%;
             max-width: 440px;
-            background: var(--white);
-            border: 1px solid var(--line);
-            border-radius: 20px;
-            padding: 36px;
-            box-sizing: border-box;
+            background: var(--surface);
+            border-radius: var(--radius-hero);
+            padding: 40px;
             display: flex;
             flex-direction: column;
             gap: 20px;
+            box-shadow: var(--shadow-card);
         }
 
-        form h1 {
+        .kartu-masuk h2 {
             margin: 0;
             font-size: 28px;
             font-weight: 800;
         }
 
-        form>p.lead {
+        .kartu-masuk>p {
             margin: 0;
             font-size: 15px;
-            color: var(--ink-muted);
-            line-height: 1.5;
+            color: var(--muted);
         }
 
-        .field {
+        .baris-ingat {
             display: flex;
-            flex-direction: column;
-            gap: 8px;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 14px;
         }
 
-        .field label {
-            font-size: 14px;
+        .baris-ingat label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--ink);
+        }
+
+        .baris-ingat a {
             font-weight: 600;
         }
 
-        .field input {
-            padding: 13px 14px;
-            border-radius: 10px;
-            border: 1px solid var(--input-border);
-            font: inherit;
-            font-size: 15px;
-        }
-
-        .field input:focus {
-            outline: none;
-            border-color: var(--primary);
-        }
-
-        .btn-primary {
-            padding: 14px;
-            border-radius: 12px;
-            background: var(--primary);
-            color: var(--white);
+        .pembatas {
+            height: 1px;
+            background: var(--line);
             border: 0;
-            text-decoration: none;
-            font-weight: 700;
-            font-size: 16px;
-            text-align: center;
-            cursor: pointer;
-            font-family: inherit;
-        }
-
-        .btn-primary:hover {
-            background: var(--primary-dark);
-        }
-
-        .signup-line {
             margin: 0;
-            font-size: 15px;
-            color: var(--ink-muted);
+        }
+
+        .teks-tengah {
+            margin: 0;
+            font-size: 14px;
+            color: var(--muted);
             text-align: center;
         }
 
-        .signup-line a {
+        .teks-tengah a {
             font-weight: 600;
         }
     </style>
@@ -180,41 +192,68 @@
 
 <body>
 
-    <header>
-        <div class="container">
-            <a href="{{ route('welcome') }}" class="brand">
-                <span class="brand-mark" aria-hidden="true">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2"
+    <div class="masuk-shell">
+        <div class="masuk-kiri">
+            <div class="brand-row">
+                <span class="mark" aria-hidden="true">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#051C12" stroke-width="2"
                         stroke-linecap="round">
-                        <path d="M4 12h2M8 8v8M12 5v14M16 8v8M20 12h0" />
+                        <path d="M4 12h1M8 8v8M12 5v14M16 8v8M20 12h0" />
                     </svg>
                 </span>
-                <span class="brand-name">Ampira</span>
-            </a>
-            <a href="{{ route('welcome') }}" class="back-link">Kembali ke beranda</a>
+                <span class="wordmark">Ampira</span>
+            </div>
+            <div class="masuk-mid">
+                <span class="masuk-chip">Skrining awal untuk orang tua</span>
+                <h1>Kenali tanda keterlambatan bicara anak, dari rumah.</h1>
+                <p>Jawab pertanyaan singkat tentang cara anak berbicara dan berinteraksi. Ampira menghitung tingkat
+                    keyakinan indikasi dengan metode Fuzzy dan Certainty Factor.</p>
+                <div class="fitur-list">
+                    @foreach (['Untuk anak usia 12–60 bulan', 'Hasil keluar setelah kuesioner selesai', 'Bisa konsultasi dengan psikolog lewat chat'] as $fitur)
+                        <div class="baris">
+                            <span class="dot" aria-hidden="true">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#C6F36B"
+                                    stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M20 6 9 17l-5-5" />
+                                </svg>
+                            </span>
+                            <span class="teks">{{ $fitur }}</span>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+            <div class="masuk-note">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C6F36B" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round" style="flex:none">
+                    <path d="M12 9v4M12 17h.01" />
+                    <path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z" />
+                </svg>
+                <span>Hasil skrining bukan diagnosis. Untuk kepastian, konsultasikan dengan tenaga profesional.</span>
+            </div>
         </div>
-    </header>
 
-    <main>
-        <form onsubmit="event.preventDefault(); window.location.href='{{ route('skrining.profil') }}';">
-            <div>
-                <h1>Masuk ke akun Anda</h1>
-                <p class="lead">Hasil skrining tersimpan di akun ini dan bisa Anda lihat kembali.</p>
-            </div>
-            <div class="field">
-                <label for="email">Email</label>
-                <input id="email" name="email" type="email" placeholder="nama@email.com" autocomplete="username">
-            </div>
-            <div class="field">
-                <label for="sandi">Kata sandi</label>
-                <input id="sandi" name="sandi" type="password" placeholder="Minimal 8 karakter"
-                    autocomplete="current-password">
-            </div>
-            <button type="submit" class="btn-primary">Masuk</button>
-            <p class="signup-line">Belum punya akun? <a href="#">Daftar di sini</a></p>
-            <p class="signup-line"><a href="{{ route('demo.peran') }}">Lihat demo semua peran</a></p>
-        </form>
-    </main>
+        <div class="masuk-kanan">
+            <form class="kartu-masuk"
+                onsubmit="event.preventDefault(); window.location.href='{{ route('beranda') }}';">
+                <div>
+                    <h2>Masuk ke akun</h2>
+                    <p>Satu akun untuk orang tua, pakar, dan admin.</p>
+                </div>
+                <x-isian label="Email" type="email" name="email" placeholder="nama@email.com"
+                    autocomplete="username" />
+                <x-isian label="Kata sandi" type="password" name="sandi" placeholder="••••••••"
+                    autocomplete="current-password" />
+                <div class="baris-ingat">
+                    <label><input type="checkbox" name="ingat"> Ingat saya</label>
+                    <a href="#">Lupa kata sandi?</a>
+                </div>
+                <x-tombol variant="utama" type="submit" style="width:100%">Masuk</x-tombol>
+                <hr class="pembatas">
+                <p class="teks-tengah">Belum punya akun? <a href="#">Daftar sebagai orang tua</a></p>
+                <p class="teks-tengah"><a href="{{ route('demo.peran') }}">Lihat demo semua peran &rarr;</a></p>
+            </form>
+        </div>
+    </div>
 
 </body>
 

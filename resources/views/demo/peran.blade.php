@@ -5,42 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <title>Ampira — Pilih peran</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
-        rel="stylesheet">
+    @include('partials.tokens')
     <style>
-        :root {
-            --primary: #0E6E66;
-            --ink: #16212B;
-            --ink-muted: #4B5A66;
-            --line: #D9E1E6;
-            --bg: #F6F8F9;
-            --white: #FFFFFF;
-        }
-
-        * {
-            box-sizing: border-box;
-        }
-
-        body {
-            margin: 0;
-            background: var(--bg);
-            color: var(--ink);
-            font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
-        }
-
-        a {
-            color: var(--primary);
-        }
-
-        a:hover {
-            color: #0A524C;
-        }
-
         header {
-            background: var(--white);
+            background: var(--surface);
             border-bottom: 1px solid var(--line);
         }
 
@@ -65,8 +33,8 @@
         .brand-mark {
             width: 36px;
             height: 36px;
-            border-radius: 10px;
-            background: var(--primary);
+            border-radius: 11px;
+            background: var(--lime);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -113,7 +81,7 @@
             margin: 0;
             font-size: 17px;
             line-height: 1.6;
-            color: var(--ink-muted);
+            color: var(--muted);
         }
 
         .role-grid {
@@ -127,7 +95,7 @@
             min-width: 0;
             text-decoration: none;
             color: var(--ink);
-            background: var(--white);
+            background: var(--surface);
             border: 1px solid var(--line);
             border-radius: 20px;
             padding: 28px;
@@ -161,7 +129,7 @@
             margin: 0;
             font-size: 15px;
             line-height: 1.6;
-            color: var(--ink-muted);
+            color: var(--muted);
         }
 
         .role-card .go {
@@ -188,7 +156,7 @@
         <div class="container">
             <a href="{{ route('welcome') }}" class="brand">
                 <span class="brand-mark" aria-hidden="true">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2"
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#051C12" stroke-width="2"
                         stroke-linecap="round">
                         <path d="M4 12h2M8 8v8M12 5v14M16 8v8M20 12h0" />
                     </svg>

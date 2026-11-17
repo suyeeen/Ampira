@@ -5,71 +5,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <title>@yield('title', 'Ampira')</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
-        rel="stylesheet">
+    @include('partials.tokens')
     <style>
-        :root {
-            --primary: #0E6E66;
-            --primary-dark: #0A524C;
-            --primary-soft: #E3F2F0;
-            --ink: #16212B;
-            --ink-muted: #4B5A66;
-            --line: #D9E1E6;
-            --line-soft: #E6ECEF;
-            --input-border: #C5D1D8;
-            --bg: #F6F8F9;
-            --white: #FFFFFF;
-            --warn-bg: #FFF4E0;
-            --warn-border: #F0D3A3;
-            --warn-text: #5C3200;
-            --warn-icon: #8A4B00;
-            --low-bg: #E3F2F0;
-            --low-text: #0A524C;
-            --high-bg: #FDE7E7;
-            --high-text: #8A1C1C;
-        }
-
-        * {
-            box-sizing: border-box;
-        }
-
-        body {
-            margin: 0;
-            background: var(--bg);
-            color: var(--ink);
-            font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
-            min-height: 100vh;
-        }
-
-        a {
-            color: var(--primary);
-        }
-
-        a:hover {
-            color: var(--primary-dark);
-        }
-
         .container {
-            max-width: 1120px;
+            max-width: 1360px;
             margin: 0 auto;
-            padding: 16px 24px;
+            padding: 0 48px;
         }
 
         /* ---------- HEADER ---------- */
         .app-header {
-            background: var(--white);
+            background: var(--surface);
             border-bottom: 1px solid var(--line);
         }
 
         .app-header .container {
             display: flex;
-            flex-wrap: wrap;
             align-items: center;
             justify-content: space-between;
             gap: 16px;
+            padding-top: 16px;
+            padding-bottom: 16px;
         }
 
         .brand {
@@ -78,17 +34,14 @@
             gap: 10px;
             text-decoration: none;
             color: var(--ink);
-        }
-
-        .brand:hover {
-            color: var(--ink);
+            flex: none;
         }
 
         .brand-mark {
             width: 36px;
             height: 36px;
-            border-radius: 10px;
-            background: var(--primary);
+            border-radius: 11px;
+            background: var(--lime);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -96,279 +49,209 @@
         }
 
         .brand-name {
-            font-size: 20px;
+            font-size: 19px;
             font-weight: 800;
         }
 
         .app-nav {
             display: flex;
-            flex-wrap: wrap;
             gap: 4px;
+            background: var(--chip);
+            border-radius: var(--radius-pill);
+            padding: 5px;
         }
 
         .nav-link {
-            padding: 10px 14px;
-            border-radius: 10px;
+            padding: 8px 16px;
+            border-radius: var(--radius-pill);
             text-decoration: none;
-            color: var(--ink-muted);
-            font-weight: 500;
+            color: var(--muted);
+            font-weight: 600;
             font-size: 15px;
-        }
-
-        .nav-link:hover {
-            color: var(--ink);
+            white-space: nowrap;
         }
 
         .nav-link.active {
-            background: var(--primary-soft);
-            color: var(--primary-dark);
-            font-weight: 600;
+            background: var(--deep);
+            color: #fff;
         }
 
-        /* ---------- MAIN / STEPPER ---------- */
-        main {
-            max-width: {{ $maxWidth ?? '1120px' }};
-            margin: 0 auto;
-            padding: 48px 24px 64px;
+        .app-account {
             display: flex;
-            flex-direction: column;
-            gap: 28px;
-        }
-
-        .stepper {
-            margin: 0;
-            padding: 0;
-            list-style: none;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            font-size: 14px;
-            font-weight: 600;
-        }
-
-        .stepper li {
-            padding: 8px 14px;
-            border-radius: 999px;
-            background: var(--line-soft);
-            color: var(--ink-muted);
-        }
-
-        .stepper li.current {
-            background: var(--primary);
-            color: var(--white);
-        }
-
-        .stepper li.done {
-            background: var(--primary-soft);
-            color: var(--primary-dark);
-        }
-
-        /* ---------- FORM ---------- */
-        .card {
-            background: var(--white);
-            border: 1px solid var(--line);
-            border-radius: 20px;
-            padding: 32px;
-        }
-
-        .field {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
-        .field label {
-            font-size: 14px;
-            font-weight: 600;
-        }
-
-        .field input,
-        .field select {
-            padding: 13px 14px;
-            border-radius: 10px;
-            border: 1px solid var(--input-border);
-            font: inherit;
-            font-size: 15px;
-            width: 100%;
-            background: var(--white);
-            color: var(--ink);
-        }
-
-        .field input:focus,
-        .field select:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px var(--primary-soft);
-        }
-
-        .radio-group {
-            display: flex;
-            flex-wrap: wrap;
+            align-items: center;
             gap: 12px;
+            flex: none;
         }
 
-        .radio-option {
-            flex: 1 1 160px;
+        .icon-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 999px;
+            background: var(--chip);
+            border: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex: none;
+        }
+
+        .app-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 999px;
+            background: var(--brand-soft);
+            color: var(--brand);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 14px;
+            flex: none;
+        }
+
+        .app-account span.name {
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        /* ---------- MAIN ---------- */
+        main {
+            max-width: {{ $maxWidth ?? '1360px' }};
+            margin: 0 auto;
+            padding: 36px 48px 56px;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .page-head {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: flex-end;
+            justify-content: space-between;
+            gap: 16px;
+        }
+
+        .page-head h1 {
+            margin: 0 0 6px;
+            font-size: 30px;
+            font-weight: 800;
+        }
+
+        .page-head p {
+            margin: 0;
+            font-size: 15px;
+            color: var(--muted);
+        }
+
+        /* ---------- STEPPER ---------- */
+        .stepper {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .stepper .langkah {
             display: flex;
             align-items: center;
             gap: 10px;
-            padding: 13px 14px;
-            border-radius: 10px;
-            border: 1px solid var(--input-border);
-            font-size: 15px;
         }
 
-        .btn-primary,
-        .btn-outline {
-            padding: 14px;
-            border-radius: 12px;
-            text-decoration: none;
+        .stepper .bulat {
+            width: 32px;
+            height: 32px;
+            border-radius: 999px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
             font-weight: 700;
-            font-size: 16px;
-            text-align: center;
-            border: 0;
-            cursor: pointer;
-            font-family: inherit;
-            display: inline-block;
+            border: 1px solid var(--line);
+            background: var(--surface);
+            color: var(--muted);
+            flex: none;
         }
 
-        .btn-primary {
-            background: var(--primary);
-            color: var(--white);
+        .stepper .langkah.selesai .bulat {
+            background: var(--brand);
+            border-color: var(--brand);
+            color: #fff;
         }
 
-        .btn-primary:hover {
-            background: var(--primary-dark);
-            color: var(--white);
+        .stepper .langkah.sekarang .bulat {
+            background: var(--deep);
+            border-color: var(--deep);
+            color: var(--lime);
         }
 
-        .btn-outline {
-            border: 1px solid var(--input-border);
-            background: var(--white);
+        .stepper .langkah span.label {
+            font-size: 15px;
+            color: var(--muted);
+            font-weight: 500;
+        }
+
+        .stepper .langkah.sekarang span.label {
             color: var(--ink);
+            font-weight: 700;
+        }
+
+        .stepper .garis {
+            width: 56px;
+            height: 2px;
+            background: var(--line);
+        }
+
+        .stepper .garis.selesai {
+            background: var(--brand);
+        }
+
+        /* ---------- CARD ---------- */
+        .kartu {
+            background: var(--surface);
+            border: 1px solid var(--line);
+            border-radius: var(--radius-card);
+            padding: 28px;
+        }
+
+        .kv-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            width: 100%;
+        }
+
+        .kv-row span.k {
+            font-size: 14px;
+            color: var(--muted);
+        }
+
+        .kv-row span.v {
+            font-size: 14px;
             font-weight: 600;
         }
 
-        .btn-outline:hover {
-            color: var(--ink);
-            border-color: var(--ink-muted);
-        }
+        @media (max-width: 900px) {
 
-        .btn-primary:disabled,
-        .btn-outline:disabled {
-            cursor: not-allowed;
-            opacity: .45;
-        }
-
-        /* ---------- ALERTS ---------- */
-        .alert-sample {
-            margin: 0;
-            padding: 12px 16px;
-            border-radius: 10px;
-            background: #EEF1F4;
-            border: 1px dashed #9AA8B2;
-            font-size: 14px;
-            color: #3A4853;
-        }
-
-        .alert-warning {
-            background: var(--warn-bg);
-            border: 1px solid var(--warn-border);
-            border-radius: 20px;
-            padding: 28px 32px;
-            display: flex;
-            gap: 16px;
-            align-items: flex-start;
-        }
-
-        .alert-warning h2 {
-            margin: 0;
-            font-size: 17px;
-            font-weight: 700;
-            color: var(--warn-text);
-        }
-
-        .alert-warning p {
-            margin: 0;
-            font-size: 15px;
-            line-height: 1.6;
-            color: var(--warn-text);
-        }
-
-        /* ---------- BADGES ---------- */
-        .badge {
-            padding: 4px 12px;
-            border-radius: 999px;
-            font-weight: 700;
-            font-size: 14px;
-        }
-
-        .badge-rendah {
-            background: var(--low-bg);
-            color: var(--low-text);
-        }
-
-        .badge-sedang {
-            background: var(--warn-bg);
-            color: var(--warn-text);
-        }
-
-        .badge-tinggi {
-            background: var(--high-bg);
-            color: var(--high-text);
-        }
-
-        /* ---------- TABLE ---------- */
-        .table-wrap {
-            background: var(--white);
-            border: 1px solid var(--line);
-            border-radius: 20px;
-            overflow-x: auto;
-        }
-
-        table {
-            width: 100%;
-            min-width: 720px;
-            border-collapse: collapse;
-            font-size: 15px;
-        }
-
-        thead tr {
-            background: #F1F5F7;
-            text-align: left;
-        }
-
-        th {
-            padding: 14px 20px;
-            font-size: 13px;
-            font-weight: 700;
-            color: #3A4853;
-        }
-
-        td {
-            padding: 16px 20px;
-            border-top: 1px solid var(--line-soft);
-        }
-
-        .visually-hidden {
-            position: absolute;
-            width: 1px;
-            height: 1px;
-            overflow: hidden;
-            clip: rect(0 0 0 0);
-        }
-
-        @media (max-width: 640px) {
-            .app-header .container {
-                padding: 14px 20px;
-            }
-
+            .container,
             main {
-                padding: 32px 18px 48px;
+                padding-left: 20px;
+                padding-right: 20px;
             }
 
-            .card {
-                padding: 22px;
+            .app-header .container {
+                flex-wrap: wrap;
+            }
+
+            .app-nav {
+                order: 3;
+                width: 100%;
+                overflow-x: auto;
+            }
+
+            .page-head {
+                flex-direction: column;
+                align-items: stretch;
             }
         }
     </style>
@@ -378,24 +261,36 @@
 <body>
     <header class="app-header">
         <div class="container">
-            <a href="{{ route('welcome') }}" class="brand">
+            <a href="{{ route('beranda') }}" class="brand">
                 <span class="brand-mark" aria-hidden="true">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2"
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#051C12" stroke-width="2"
                         stroke-linecap="round">
-                        <path d="M4 12h2M8 8v8M12 5v14M16 8v8M20 12h0" />
+                        <path d="M4 12h1M8 8v8M12 5v14M16 8v8M20 12h0" />
                     </svg>
                 </span>
                 <span class="brand-name">Ampira</span>
             </a>
             <nav aria-label="Menu akun" class="app-nav">
+                <a href="{{ route('beranda') }}"
+                    class="nav-link {{ ($activeNav ?? '') === 'beranda' ? 'active' : '' }}">Beranda</a>
                 <a href="{{ route('skrining.profil') }}"
-                    class="nav-link {{ ($activeNav ?? '') === 'skrining' ? 'active' : '' }}">Skrining baru</a>
+                    class="nav-link {{ ($activeNav ?? '') === 'skrining' ? 'active' : '' }}">Skrining</a>
                 <a href="{{ route('riwayat') }}"
                     class="nav-link {{ ($activeNav ?? '') === 'riwayat' ? 'active' : '' }}">Riwayat</a>
                 <a href="{{ route('chat') }}"
                     class="nav-link {{ ($activeNav ?? '') === 'chat' ? 'active' : '' }}">Chat psikolog</a>
-                <a href="{{ route('welcome') }}" class="nav-link">Keluar</a>
             </nav>
+            <div class="app-account">
+                <button type="button" class="icon-btn" aria-label="Notifikasi">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0B130F" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path
+                            d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9M13.7 21a2 2 0 0 1-3.4 0" />
+                    </svg>
+                </button>
+                <span class="app-avatar" aria-hidden="true">A</span>
+                <span class="name">Orang tua A</span>
+            </div>
         </div>
     </header>
 
